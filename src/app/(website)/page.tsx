@@ -7,7 +7,7 @@ import GetOurAppSection from "@/modules/website/landing-page/GetOurAppSection";
 
 export default function Home() {
     return (
-        <div className="dark:bg-[#030302] bg-white">
+        <div className="bg-[#030302]">
             <HeroSection />
             <FeatureSection />
             <EventGuide />
