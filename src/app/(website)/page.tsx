@@ -7,13 +7,13 @@ import GetOurAppSection from "@/modules/website/landing-page/GetOurAppSection";
 
 export default function Home() {
     return (
-        <div className="bg-[#030302]">
+        <>
             <HeroSection />
             <FeatureSection />
             <EventGuide />
             <SisslAction />
             <Events />
             <GetOurAppSection />
-        </div>
+        </>
     );
 }

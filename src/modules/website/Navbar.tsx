@@ -12,6 +12,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { Chart, Logo, SubMenuIcon } from "../../../public/icons";
+import { AUTH_ROUTES } from "@/constants/routes/auth";
 
 // NAV_LINKS constant
 export const NAV_LINKS = [
@@ -253,15 +254,15 @@ const DropdownNavItem = ({
 
     return (
         <div
-            className="relative h-full bg-white dark:bg-black"
+            className="relative h-full bg-black"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             {/* Title + Chevron */}
             <div className="flex items-center gap-2 h-full cursor-pointer">
-                <span className="text-black dark:text-white">{item.title}</span>
+                <span className="text-white">{item.title}</span>
                 <ChevronDown
-                    className={`transition-transform duration-300 text-black dark:text-white ${
+                    className={`transition-transform duration-300 text-white ${
                         isHovered ? "rotate-180" : ""
                     }`}
                 />
@@ -275,15 +276,15 @@ const DropdownNavItem = ({
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="absolute mt-1 group-hover:flex top-full left-[-150px] transform -translate-x-1/2 w-[500px] p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-900 rounded-lg shadow-lg z-50 gap-6"
+                        className="absolute mt-1 group-hover:flex top-full left-[-150px] transform -translate-x-1/2 w-[500px] p-4 bg-black border border-gray-200 dark:border-gray-900 rounded-lg shadow-lg z-50 gap-6"
                     >
                         <div className="flex flex-row gap-5 p-4">
                             {/* Left Panel */}
                             <div className="w-2/4 pt-4">
-                                <p className="mb-1 font-semibold text-black dark:text-white">
+                                <p className="mb-1 font-semibold text-white">
                                     {item.header}
                                 </p>
-                                <p className="text-xs text-black dark:text-white">
+                                <p className="text-xs text-white">
                                     {item.description}
                                 </p>
                                 <div className="py-8">
@@ -298,16 +299,16 @@ const DropdownNavItem = ({
                                         key={`sublink-${subIndex}`}
                                         href={subLink.href}
                                         className={cn(
-                                            "flex items-center space-x-4 p-2 rounded-md transition-all hover:bg-gray-100 dark:hover:bg-bg_card-hover",
+                                            "flex items-center space-x-4 p-2 rounded-md transition-all hover:bg-black hover:text-white",
                                             pathname === subLink.href &&
                                                 "dark:bg-bg_card-hover bg-gray-100"
                                         )}
                                     >
                                         <div className="flex flex-col">
-                                            <p className="mb-1 font-semibold text-black dark:text-white">
+                                            <p className="mb-1 font-semibold text-white">
                                                 {subLink.title}
                                             </p>
-                                            <p className="text-xs text-black dark:text-white">
+                                            <p className="text-xs text-white">
                                                 {subLink.description}
                                             </p>
                                         </div>
@@ -331,7 +332,7 @@ const Navbar = () => {
     return (
         <header
             className={cn(
-                "bg-white dark:bg-black h-[103px] sticky top-0 z-50 inset-0 w-full",
+                "bg-black h-[103px] sticky top-0 z-50 inset-0 w-full",
                 isScrolled && "mb-1"
             )}
         >
@@ -356,9 +357,8 @@ const Navbar = () => {
                                     key={`nav-${index}`}
                                     href={item.href || "#"}
                                     className={cn(
-                                        "hover:text-primary transition-colors duration-200 text-black dark:text-white",
-                                        item.href === pathname &&
-                                            "text-si_yellow dark:text-si_yellow"
+                                        "hover:text-primary transition-colors duration-200 text-white",
+                                        item.href === pathname && "text-primary"
                                     )}
                                 >
                                     {item.title}
@@ -370,12 +370,12 @@ const Navbar = () => {
                     <div className="flex items-center">
                         <div className="hidden lg:flex items-center space-x-4 text-sm font-semibold">
                             <Link
-                                href="/auth/login"
-                                className="hover:bg-si_yellow dark:hover:text-black transition-all px-5 py-4 rounded-xl text-black dark:text-white"
+                                href={AUTH_ROUTES.LOGIN}
+                                className="hover:bg-primary hover:text-black transition-all px-5 py-4 rounded-xl text-white"
                             >
                                 Login
                             </Link>
-                            <ThemeToggle />
+                            {/* <ThemeToggle /> */}
                         </div>
                         <MobileNav />
                     </div>
@@ -389,199 +389,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// DropdownNavItem Component
-// const DropdownNavItem = ({
-//   item,
-//   pathname,
-// }: {
-//   item: NavItem;
-//   pathname: string;
-// }) => (
-//   <div className="relative group h-full bg-white dark:bg-black">
-//     <div className="flex items-center gap-2 h-full cursor-pointer group-hover:text-black dark:group-hover:text-white">
-//       <span className="text-black dark:text-white">{item.title}</span>
-//       <ChevronDown className="transition-transform duration-300 group-hover:rotate-180 text-black dark:text-white" />
-//     </div>
-//     <div className="absolute hidden group-hover:flex top-10/12 left-1/2 transform -translate-x-1/2 w-[500px] p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-900 rounded-lg shadow-lg z-50 gap-6">
-//       <div className="flex flex-row gap-5 p-4">
-//         <div className="w-2/4 pt-4">
-//           <p className="mb-1 font-semibold text-black dark:text-white">
-//             {item.header}
-//           </p>
-//           <p className="text-xs text-black dark:text-white">
-//             {item.description}
-//           </p>
-//           <div className="py-8">
-//             <SubMenuIcon />
-//           </div>
-//         </div>
-//         <div className="w-2/4 grid">
-//           {item.subLinks?.map((subLink, subIndex) => (
-//             <Link
-//               key={`sublink-${subIndex}`}
-//               href={subLink.href}
-//               className={cn(
-//                 "flex items-center space-x-4 p-2 rounded-md transition-all hover:bg-gray-100 dark:hover:bg-bg_card-hover",
-//                 pathname === subLink.href && "dark:bg-bg_card-hover bg-gray-100"
-//               )}
-//             >
-//               <div className="flex flex-col">
-//                 <p className="mb-1 font-semibold text-black dark:text-white">
-//                   {subLink.title}
-//                 </p>
-//                 <p className="text-xs text-black dark:text-white">
-//                   {subLink.description}
-//                 </p>
-//               </div>
-//             </Link>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// );
-
-// New1
-// const DropdownNavItem = ({
-//   item,
-//   pathname,
-// }: {
-//   item: NavItem;
-//   pathname: string;
-// }) => {
-//   const [isHovered, setIsHovered] = useState(false);
-
-//   return (
-//     <div
-//       className="relative h-full bg-white dark:bg-black"
-//       onMouseEnter={() => setIsHovered(true)}
-//       onMouseLeave={() => setIsHovered(false)}
-//     >
-//       <div className="flex items-center gap-2 h-full cursor-pointer group group-hover:text-black dark:group-hover:text-white">
-//         <span className="text-black dark:text-white">{item.title}</span>
-//         <ChevronDown className="transition-transform duration-300 group-hover:rotate-180 text-black dark:text-white" />
-//       </div>
-
-//       <AnimatePresence>
-//         {isHovered && (
-//           <motion.div
-//             initial={{ opacity: 0, x: 20 }}
-//             animate={{ opacity: 1, x: 0 }}
-//             exit={{ opacity: 0, x: -20 }}
-//             transition={{ duration: 0.25, ease: "easeOut" }}
-//             className="absolute top-full left-0 w-[500px] p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-900 rounded-lg shadow-lg z-50 gap-6"
-//           >
-//             <div className="flex flex-row gap-5 p-4">
-//               <div className="w-2/4 pt-4">
-//                 <p className="mb-1 font-semibold text-black dark:text-white">
-//                   {item.header}
-//                 </p>
-//                 <p className="text-xs text-black dark:text-white">
-//                   {item.description}
-//                 </p>
-//                 <div className="py-8">
-//                   <SubMenuIcon />
-//                 </div>
-//               </div>
-//               <div className="w-2/4 grid">
-//                 {item.subLinks?.map((subLink, subIndex) => (
-//                   <Link
-//                     key={`sublink-${subIndex}`}
-//                     href={subLink.href}
-//                     className={cn(
-//                       "flex items-center space-x-4 p-2 rounded-md transition-all hover:bg-gray-100 dark:hover:bg-bg_card-hover",
-//                       pathname === subLink.href &&
-//                         "dark:bg-bg_card-hover bg-gray-100"
-//                     )}
-//                   >
-//                     <div className="flex flex-col">
-//                       <p className="mb-1 font-semibold text-black dark:text-white">
-//                         {subLink.title}
-//                       </p>
-//                       <p className="text-xs text-black dark:text-white">
-//                         {subLink.description}
-//                       </p>
-//                     </div>
-//                   </Link>
-//                 ))}
-//               </div>
-//             </div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </div>
-//   );
-// };
-
-// New2
-// const DropdownNavItem = ({
-//   item,
-//   pathname,
-// }: {
-//   item: NavItem;
-//   pathname: string;
-// }) => {
-//   const [isHovered, setIsHovered] = useState(false);
-
-//   return (
-//     <div
-//       className="relative h-full bg-white dark:bg-black"
-//       onMouseEnter={() => setIsHovered(true)}
-//       onMouseLeave={() => setIsHovered(false)}
-//     >
-//       <div className="flex items-center gap-2 h-full cursor-pointer group group-hover:text-black dark:group-hover:text-white">
-//         <span className="text-black dark:text-white">{item.title}</span>
-//         <ChevronDown className="transition-transform duration-300 group-hover:rotate-180 text-black dark:text-white" />
-//       </div>
-
-//       <AnimatePresence>
-//         {isHovered && (
-//           <motion.div
-//             initial={{ opacity: 0, x: 20 }}
-//             animate={{ opacity: 1, x: 0 }}
-//             exit={{ opacity: 0, x: -20 }}
-//             transition={{ duration: 0.25, ease: "easeOut" }}
-//             className="absolute top-full left-0 w-[500px] p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-900 rounded-lg shadow-lg z-50 gap-6"
-//           >
-//             <div className="flex flex-row gap-5 p-4">
-//               <div className="w-2/4 pt-4">
-//                 <p className="mb-1 font-semibold text-black dark:text-white">
-//                   {item.header}
-//                 </p>
-//                 <p className="text-xs text-black dark:text-white">
-//                   {item.description}
-//                 </p>
-//                 <div className="py-8">
-//                   <SubMenuIcon />
-//                 </div>
-//               </div>
-//               <div className="w-2/4 grid">
-//                 {item.subLinks?.map((subLink, subIndex) => (
-//                   <Link
-//                     key={`sublink-${subIndex}`}
-//                     href={subLink.href}
-//                     className={cn(
-//                       "flex items-center space-x-4 p-2 rounded-md transition-all hover:bg-gray-100 dark:hover:bg-bg_card-hover",
-//                       pathname === subLink.href &&
-//                         "dark:bg-bg_card-hover bg-gray-100"
-//                     )}
-//                   >
-//                     <div className="flex flex-col">
-//                       <p className="mb-1 font-semibold text-black dark:text-white">
-//                         {subLink.title}
-//                       </p>
-//                       <p className="text-xs text-black dark:text-white">
-//                         {subLink.description}
-//                       </p>
-//                     </div>
-//                   </Link>
-//                 ))}
-//               </div>
-//             </div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </div>
-//   );
-// };
