@@ -72,7 +72,7 @@ const Page = () => {
                         >
                             Get Started
                         </a>
-                        <button className="text-[14px] xl:text-[16px] w-[151px] h-[48px] xl:w-[181px] xl:h-[48px] rounded-[8px] bg-si_grey text-white">
+                        <button className="text-[14px] xl:text-[16px] w-[151px] h-[48px] xl:w-[181px] xl:h-[48px] rounded-[8px] bg-gray-800 text-white">
                             Request a demo
                         </button>
                     </div>

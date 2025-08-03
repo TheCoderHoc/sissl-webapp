@@ -44,7 +44,7 @@ export default function ForgotPassword() {
             actionLabel=""
             question="Reset your password"
             to="#"
-            label="Password reset"
+            label="Password Reset"
         >
             <Form {...form}>
                 <form

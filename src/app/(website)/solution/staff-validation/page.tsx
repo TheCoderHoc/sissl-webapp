@@ -63,7 +63,7 @@ const Page = () => {
                         >
                             Validate Staff
                         </a>
-                        <button className="text-[14px] xl:text-[16px] w-[151px] h-[48px] xl:w-[181px] xl:h-[48px] mr-4 rounded-[8px] bg-si_grey text-white dark:text-black dark:bg-gray-200">
+                        <button className="text-[14px] xl:text-[16px] w-[151px] h-[48px] xl:w-[181px] xl:h-[48px] mr-4 rounded-[8px] bg-gray-800 text-white dark:text-black dark:bg-gray-200">
                             Request a demo
                         </button>
                     </div>

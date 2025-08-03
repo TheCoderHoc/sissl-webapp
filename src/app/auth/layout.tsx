@@ -10,7 +10,7 @@ export default function AuthLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <main className="bg-[#000] text-black grid lg:grid-cols-2 gap-8 px-4 lg:px-2 xl:px-32 w-full min-h-screen">
+        <main className="bg-[#000] grid lg:grid-cols-2 gap-8 px-4 lg:px-2 xl:px-32 w-full min-h-screen">
             <div className="flex flex-col px-4 sm:px-8 md:px-12 lg:px-16 py-4 overflow-y-auto max-h-screen">
                 <div className="w-32 sm:w-40 md:w-40 mt-4 mb-2">
                     <Link href="/">

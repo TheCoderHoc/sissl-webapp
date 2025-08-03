@@ -105,9 +105,7 @@ export default function LoginPage() {
                     </Button>
 
                     <div className="text-left mt-2">
-                        <span className="text-foreground">
-                            Forgot Password &nbsp;
-                        </span>
+                        <span>Forgot Password &nbsp;</span>
                         <Link
                             className="text-primary hover:underline"
                             href={AUTH_ROUTES.FORGOT_PASSWORD}

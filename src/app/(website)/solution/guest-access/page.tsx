@@ -45,7 +45,7 @@ const Page = () => {
                         >
                             Get Started
                         </a>
-                        <button className="text-[14px] xl:text-[16px] w-[151px] h-[48px] xl:w-[181px] rounded-[8px] bg-si_grey text-white mr-4">
+                        <button className="text-[14px] xl:text-[16px] w-[151px] h-[48px] xl:w-[181px] rounded-[8px] bg-gray-800 text-white mr-4">
                             Request a demo
                         </button>
                     </div>

@@ -81,7 +81,7 @@ export default function UploadArea({
         onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     }) => {
         return (
-            <Card className="min-h-[250px] text-gray-400 bg-dash_black relative">
+            <Card className="min-h-[250px] text-gray-400 bg-gray-900 relative">
                 {isLoading || isUploadLoading ? (
                     <Skeleton className="w-full min-h-[250px] flex items-center justify-center text-lg font-thin">
                         Uploading File...

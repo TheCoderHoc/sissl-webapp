@@ -40,7 +40,7 @@ export default function SubmitButtonGroup({
 
                 <Button
                     size="lg"
-                    className="bg-dash_blue text-white"
+                    className="bg-blue-600 text-white"
                     onClick={onOk}
                 >
                     {okText}
