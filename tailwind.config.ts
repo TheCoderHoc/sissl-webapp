@@ -51,7 +51,6 @@ export default {
                 input: "var(--input)",
                 ring: "var(--ring)",
             },
-            // Keyframes and animations removed - not used in the codebase
             borderRadius: {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
