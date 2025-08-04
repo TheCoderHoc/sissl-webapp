@@ -12,6 +12,7 @@ export default function DashboardLayout({
     return (
         <div className="flex h-screen w-full">
             <DashboardSidebar />
+
             <div className="flex-1 flex flex-col h-full">
                 <DashboardHeader />
 

@@ -1,10 +1,7 @@
 import useApiManager from "@/constants/controllers/mainController";
 import { AxiosError } from "axios";
 import { useQueryClient } from "@tanstack/react-query";
-import {../models/team
-    CreateTeamRequest,
-    CreateTeamResponse,
-} from "../../../dashboard/models/team";
+import { CreateTeamRequest, CreateTeamResponse } from "../models/team";
 
 const useCreateTeamController = () => {
     const queryClient = useQueryClient();

@@ -5,18 +5,22 @@ declare module "next-auth" {
         user: {
             accessToken: string;
             isEmailVerified: boolean;
-            accountType: boolean;
+            accountType: string;
             firstName: string;
             lastName: string;
+            email: string;
+            companyName: string;
         };
     }
 
     interface User {
         accessToken: string;
         isEmailVerified: boolean;
-        accountType: boolean;
+        accountType: string;
         firstName: string;
         lastName: string;
+        email: string;
+        companyName: string;
     }
 }
 
@@ -24,8 +28,10 @@ declare module "next-auth/jwt" {
     interface JWT {
         accessToken: string;
         isEmailVerified: boolean;
-        accountType: boolean;
+        accountType: string;
         firstName: string;
         lastName: string;
+        email: string;
+        companyName: string;
     }
 }

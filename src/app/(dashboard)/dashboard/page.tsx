@@ -2,8 +2,19 @@
 
 import DashboardNavCard from "@/modules/dashboard/components/DashboardNavCard";
 import { dashboardNavCards } from "@/modules/dashboard/constants/dashboard-cards";
+import { useSession } from "next-auth/react";
 
 export default function DashboardHome() {
+    const { data: session } = useSession();
+
+    if (!session) return null;
+
+    const {
+        user: { firstName, lastName },
+    } = session;
+
+    const fullName = `${firstName} ${lastName}`;
+
     return (
         <div className="space-y-10">
             <h2 className="text-lg">
@@ -11,7 +22,7 @@ export default function DashboardHome() {
                     Welcome back,
                     <br />
                 </span>
-                <span>Dave Wilson👋</span>
+                <span>{fullName}👋</span>
             </h2>
 
             <p>

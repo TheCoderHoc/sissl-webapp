@@ -3,6 +3,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import Pill from "@/components/shared/Pill";
+import Link from "next/link";
+import { ADMIN_DASHBOARD_ROUTES } from "@/constants/routes";
 
 export interface ISubscriber {
     id: string;
@@ -47,9 +49,14 @@ export const subscriberColumns: ColumnDef<ISubscriber>[] = [
         cell: ({ row }) => {
             return (
                 <div className="space-x-2">
-                    <Button size="sm" className="bg-[#F5E9001A] text-primary">
-                        View Usage
-                    </Button>
+                    <Link href={`${ADMIN_DASHBOARD_ROUTES.USER_BILLING}/1`}>
+                        <Button
+                            size="sm"
+                            className="bg-[#F5E9001A] text-primary"
+                        >
+                            View Usage
+                        </Button>
+                    </Link>
                     <Button size="sm" className="bg-[#F5E9001A] text-primary">
                         Suspend
                     </Button>

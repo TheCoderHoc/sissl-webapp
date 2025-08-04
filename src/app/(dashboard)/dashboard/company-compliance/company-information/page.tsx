@@ -3,8 +3,8 @@ import FormInput from "@/components/shared/FormInput";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { DASHBOARD_ROUTES } from "@/constants/routes";
-import { useComplianceData } from "@/modules/company/dashboard/context/company-compliance";
-import { CompanyInformationFormSchema } from "@/modules/company/dashboard/lib/validators";
+import { useCompanyComplianceData } from "@/modules/dashboard/context/company-compliance";
+import { CompanyInformationFormSchema } from "@/modules/dashboard/lib/validators";
 import { TCompanyInformationFormValues } from "@/modules/dashboard/types/company-compliance";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function CompanyInformationPage() {
-    const { setData } = useComplianceData();
+    const { setData } = useCompanyComplianceData();
 
     const form = useForm<TCompanyInformationFormValues>({
         resolver: zodResolver(CompanyInformationFormSchema),

@@ -6,11 +6,6 @@ export enum DASHBOARD_ROUTES {
     TEAM = "/dashboard/team",
     AUDIT_LOGS = "/dashboard/audit-logs",
 
-    INDIVIDUAL_BASIC_INFORMATION = "/dashboard/individual-compliance/basic-information",
-    INDIVIDUAL_CONTACT_INFORMATION = "/dashboard/individual-compliance/company-information",
-    INDIVIDUAL_UPLOAD_DOCUMENT = "/dashboard/individual-compliance/upload-document",
-    INDIVIDUAL_COMPLIANCE_STATUS = "/dashboard/individual-compliance/compliance-status",
-
     COMPANY_COMPLIANCE_INFORMATION = "/dashboard/company-compliance/company-information",
     COMPANY_COMPLIANCE_CONTACT = "/dashboard/company-compliance/contact-information",
     COMPANY_COMPLIANCE_UPLOAD_DOCUMENTS = "/dashboard/company-compliance/upload-documents",
@@ -78,4 +73,9 @@ export enum ADMIN_DASHBOARD_ROUTES {
     USER_BILLING = "/user-billing",
     VERIFICATION = "/verification",
     ID_VERIFICATION = "/verification/id-verification",
+    DOCUMENT_VERIFICATION = "/verification/document-verification",
+    KYB_KYC = "/verification/kyb-kyc",
+    STAFF_VERIFICATION = "/verification/staff-verification",
+    REFEREE_GURANTOR = "/verification/referee-and-guarantor",
+    RISK_INTELLIGENCE = "/verification/risk-intelligence",
 }

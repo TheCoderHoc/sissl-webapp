@@ -1,18 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { profileDropdownLinks } from "@/constants/profile-dropdown";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { AUTH_ROUTES } from "@/constants/routes/auth";
 
 export default function ProfileDropdown() {
+    const { data: session } = useSession();
+
     const router = useRouter();
 
-    const handleLogout = () => {};
+    if (!session) return null;
+
+    const {
+        user: { firstName },
+    } = session;
+
+    const handleLogout = async () => {
+        await signOut();
+        router.push(AUTH_ROUTES.LOGIN);
+    };
 
     return (
         <div className="p-2 space-y-6">
             <h3 className="text-md font-medium">
-                <span className="font-normal">Hello,</span> Dave
+                <span className="font-normal">Hello,</span> {firstName}
             </h3>
 
             <div className="space-y-5">

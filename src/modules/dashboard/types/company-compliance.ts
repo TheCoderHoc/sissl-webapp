@@ -3,7 +3,7 @@ import {
     CompanyInformationFormSchema,
     ContactInformationFormSchema,
     UploadDocumentSchema,
-} from "../../company/dashboard/lib/validators";
+} from "../lib/validators";
 
 export type TCompanyInformationFormValues = z.infer<
     typeof CompanyInformationFormSchema

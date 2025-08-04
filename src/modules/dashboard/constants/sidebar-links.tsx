@@ -204,35 +204,35 @@ export const getSidebarNavLinks = (isCompanyVerified: boolean | undefined) => {
 
                     {
                         label: "Document Verification",
-                        href: "document-verification",
+                        href: ADMIN_DASHBOARD_ROUTES.DOCUMENT_VERIFICATION,
                         Icon: DocumentVerificationIcon,
                         usePathHref: true,
                     },
 
                     {
                         label: "KYB/KYC",
-                        href: "payg",
+                        href: ADMIN_DASHBOARD_ROUTES.KYB_KYC,
                         Icon: KybIcon,
                         usePathHref: true,
                     },
 
                     {
                         label: "Staff Verification",
-                        href: "payg",
+                        href: ADMIN_DASHBOARD_ROUTES.STAFF_VERIFICATION,
                         Icon: StaffVerification,
                         usePathHref: true,
                     },
 
                     {
                         label: "Referee & Guarantor",
-                        href: "payg",
+                        href: ADMIN_DASHBOARD_ROUTES.REFEREE_GURANTOR,
                         Icon: GuarantorVerification,
                         usePathHref: true,
                     },
 
                     {
                         label: "Risk Intelligence",
-                        href: "payg",
+                        href: ADMIN_DASHBOARD_ROUTES.RISK_INTELLIGENCE,
                         Icon: FraudIcon,
                         usePathHref: true,
                     },
@@ -253,7 +253,7 @@ export const getSidebarNavLinks = (isCompanyVerified: boolean | undefined) => {
 
             {
                 label: "Billing and Usage",
-                href: "/billing-and-usage",
+                href: ADMIN_DASHBOARD_ROUTES.USER_BILLING,
                 Icon: BillingUsageIcon,
             },
         ],
