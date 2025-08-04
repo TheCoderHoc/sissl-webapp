@@ -1,18 +1,16 @@
 "use client";
 
-import DashboardCard from "@/components/dashboard/DashboardCard";
 import { DataTable } from "@/components/shared/DataTable";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-    IUser,
-    userColumns,
-} from "@/modules/company/dashboard/columns/user-columns";
-import { ActionModal } from "@/modules/company/dashboard/components/ActionModal";
-import EditUserModal from "@/modules/company/dashboard/components/EditUserModal";
-import InviteUserModal from "@/modules/company/dashboard/components/InviteUserModal";
-import useGetTeamController from "@/modules/company/dashboard/controllers/useGetTeamsController";
-import { Result } from "@/modules/company/dashboard/models/team";
+import { IUser } from "@/modules/auth/models/auth";
+import { userColumns } from "@/modules/dashboard/columns/user-columns";
+import { ActionModal } from "@/modules/dashboard/components/ActionModal";
+import DashboardCard from "@/modules/dashboard/components/DashboardCard";
+import EditUserModal from "@/modules/dashboard/components/EditUserModal";
+import InviteUserModal from "@/modules/dashboard/components/InviteUserModal";
+import useGetTeamController from "@/modules/dashboard/controllers/useGetTeamsController";
+
 import { useState } from "react";
 export default function Teams() {
     const [showInvite, setShowInvite] = useState(false);
@@ -23,6 +21,7 @@ export default function Teams() {
     const { data, isLoading } = useGetTeamController();
 
     const teamPopulation = data?.paginator.count;
+
     const handleEditUser = (member: IUser) => {
         setSelectedUser(member);
         setShowEditModal(true);

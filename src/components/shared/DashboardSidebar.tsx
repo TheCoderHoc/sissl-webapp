@@ -2,12 +2,13 @@ import React from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Card } from "../ui/card";
-import Logo from "../shared/Logo";
 import useSidebarStore from "@/stores/sideBarStore";
-import useUserStore from "@/stores/userStore";
 import { cn } from "@/utils/cn";
 import BuildingIcon from "../../../public/icons/Building";
 import { getSidebarNavLinks } from "@/modules/dashboard/constants/sidebar-links";
+import { useSession } from "next-auth/react";
+import { DASHBOARD_ROUTES } from "@/constants/routes";
+import { Logo } from "../../../public/icons";
 
 interface User {
     is_company?: boolean;
@@ -36,11 +37,6 @@ type UserType =
     | "subAdmin"
     | "accountant"
     | "superAdmin";
-
-const getUserType = (user: User | null): UserType => {
-    if (!user) return "individual";
-    return "accountant";
-};
 
 const isSubHrefActive = (
     searchParams: URLSearchParams,
@@ -215,15 +211,19 @@ const CompanyInfoCard: React.FC<CompanyInfoCardProps> = ({
     return (
         <Card className="bg-gray-700 px-3 py-4 flex items-start gap-4">
             <BuildingIcon />
+
             <div>
                 <h3 className="text-lg font-semibold text-white">
                     {companyName}
                 </h3>
+
                 {!isOnboardingCompleted && (
                     <p className="text-gray-400 text-sm">
                         Unverified,&nbsp;
                         <Link
-                            href="/verify"
+                            href={
+                                DASHBOARD_ROUTES.COMPANY_COMPLIANCE_INFORMATION
+                            }
                             className="text-primary text-sm hover:underline"
                         >
                             click to verify
@@ -251,75 +251,95 @@ const SidebarOverlay: React.FC<SidebarOverlayProps> = ({ isOpen, onClose }) => {
     );
 };
 
-export function DashboardSidebar(): React.ReactElement {
+export function DashboardSidebar() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const user = useUserStore((state) => state.user) as User | null;
     const { isOpen, setIsOpen } = useSidebarStore();
 
-    const {
-        is_company = false,
-        company_name = "",
-        is_onboarding_completed = false,
-    } = user || {};
+    const { data: session, status } = useSession();
 
-    const userType = getUserType(user);
-    const sidebarLinks = getSidebarNavLinks(is_onboarding_completed);
+    const accountType = session?.user?.accountType.toLowerCase() as
+        | string
+        | undefined;
+
+    const companyName = session?.user?.companyName;
+
+    const validAccountTypes = [
+        "company",
+        "individual",
+        "subAdmin",
+        "accountant",
+        "superAdmin",
+    ] as const;
+
+    const userType: (typeof validAccountTypes)[number] =
+        validAccountTypes.includes(accountType as any)
+            ? (accountType as (typeof validAccountTypes)[number])
+            : "individual";
+
+    const sidebarLinks = getSidebarNavLinks(false);
+
     const links = (sidebarLinks[userType] as NavigationLinkData[]) || [];
 
-    const handleCloseSidebar = (): void => setIsOpen(false);
-
     return (
-        <aside className="h-full bg-black">
-            <SidebarOverlay isOpen={isOpen} onClose={handleCloseSidebar} />
+        <aside className="h-full overflow-y-scroll bg-black flex-[0.2] space-y-3">
+            <SidebarOverlay isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
             <div className="h-full bg-black space-y-3 p-3">
                 <Logo />
 
-                {is_company && (
+                {userType === "company" && companyName && (
                     <CompanyInfoCard
                         isOpen={isOpen}
-                        companyName={company_name}
-                        isOnboardingCompleted={is_onboarding_completed}
+                        companyName={companyName}
+                        isOnboardingCompleted={false}
                     />
                 )}
 
-                <nav className="space-y-2">
-                    {isOpen && (
-                        <h3 className="text-gray-500 text-sm font-medium">
-                            Main Menu
-                        </h3>
-                    )}
+                {status === "loading" ? (
+                    <div className="mt-4 space-y-3">
+                        <div className="h-8 bg-gray-800 rounded animate-pulse"></div>
+                        <div className="h-8 bg-gray-800 rounded animate-pulse"></div>
+                        <div className="h-8 bg-gray-800 rounded animate-pulse"></div>
+                    </div>
+                ) : (
+                    <nav className="space-y-2">
+                        {isOpen && (
+                            <h3 className="text-gray-500 text-sm font-medium">
+                                Main Menu
+                            </h3>
+                        )}
 
-                    <ul className="space-y-5 mt-2">
-                        {links.map((linkProps) => {
-                            const {
-                                label,
-                                href,
-                                disabled = false,
-                                subHrefs,
-                            } = linkProps;
-                            const isActive = isMainLinkActive(
-                                pathname,
-                                href,
-                                subHrefs,
-                                searchParams
-                            );
+                        <ul className="space-y-5 mt-2">
+                            {links.map((linkProps) => {
+                                const {
+                                    label,
+                                    href,
+                                    disabled = false,
+                                    subHrefs,
+                                } = linkProps;
+                                const isActive = isMainLinkActive(
+                                    pathname,
+                                    href,
+                                    subHrefs,
+                                    searchParams
+                                );
 
-                            return (
-                                <li key={`${label}-${href}`}>
-                                    <NavigationLink
-                                        {...linkProps}
-                                        isActive={isActive}
-                                        isOpen={isOpen}
-                                        searchParams={searchParams}
-                                        disabled={disabled}
-                                    />
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </nav>
+                                return (
+                                    <li key={`${label}-${href}`}>
+                                        <NavigationLink
+                                            {...linkProps}
+                                            isActive={isActive}
+                                            isOpen={isOpen}
+                                            searchParams={searchParams}
+                                            disabled={disabled}
+                                        />
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </nav>
+                )}
             </div>
         </aside>
     );

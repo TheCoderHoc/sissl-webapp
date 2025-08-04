@@ -1,11 +1,11 @@
 "use client";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { Button } from "@/components/ui/button";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { DASHBOARD_ROUTES } from "@/constants/routes";
-import { useVerifyPayment } from "@/modules/company/dashboard/controllers/billing-plans/verifyPaymentController";
-import SuccessIcon from "@/public/icons/Success";
+import { useVerifyPayment } from "@/modules/dashboard/controllers/billing-plans/verifyPaymentController";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import SuccessIcon from "../../../../../../../public/icons/Success";
 
 export default function PaymentSuccessfulPage() {
     const [planId, setPlanId] = useState("");

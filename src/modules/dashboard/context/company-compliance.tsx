@@ -25,7 +25,7 @@ export const CompanyComplianceContext = createContext<
     CompanyComplianceContextType | undefined
 >(undefined);
 
-export function useComplianceData() {
+export function useCompanyComplianceData() {
     const context = useContext(CompanyComplianceContext);
 
     if (!context) {

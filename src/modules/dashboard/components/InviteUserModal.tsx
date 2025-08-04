@@ -4,10 +4,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import CustomLoader from "@/components/ui/customLoader";
-import { Success } from "@/public/icons";
-import QRImage from "@/public/images/qr-sample.png";
-import useCreateTeamController from "@/modules/company/dashboard/controllers/useCreateTeamController";
+import useCreateTeamController from "../controllers/useCreateTeamController";
+import { Success } from "../../../../public/icons";
 
 interface InviteUserModalProps {
     open: boolean;
@@ -346,7 +344,7 @@ export default function InviteUserModal({
                             <Dialog.Title className="sr-only">
                                 Generating QR
                             </Dialog.Title>
-                            <CustomLoader />
+                            {/* <CustomLoader /> */}
                             <p className="mt-3 text-white text-lg">
                                 Generating QR Code...
                             </p>
@@ -367,15 +365,15 @@ export default function InviteUserModal({
                                 QR Code for “{fullName}”
                             </p>
                             <div className="w-full flex justify-center mb-6">
-                                <img
+                                {/* <img
                                     src={QRImage.src}
                                     alt="QR Code"
                                     className="w-[200px] h-[200px] mb-4"
-                                />
+                                /> */}
                             </div>
                             <div className="flex gap-8 justify-between">
                                 <a
-                                    href={QRImage.src}
+                                    // href={QRImage.src}
                                     download="invite-qr.png"
                                     className="px-4 py-2 border rounded-xl border-white text-white"
                                 >

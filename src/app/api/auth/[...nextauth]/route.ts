@@ -19,7 +19,7 @@ const handler = NextAuth({
 
                     const login = loginResponse?.data?.data;
 
-                    console.log(login);
+                    console.log(login)
 
                     const profileResponse = await Axios.get(
                         "/accounts/profile",
@@ -32,7 +32,11 @@ const handler = NextAuth({
 
                     const profile = profileResponse?.data?.data;
 
+                    console.log(profile);
+
                     if (login && profile) {
+                        const { e } = profile;
+
                         return {
                             id: "",
                             accessToken: login.access,
@@ -40,6 +44,8 @@ const handler = NextAuth({
                             accountType: login.account_type,
                             firstName: profile?.first_name,
                             lastName: profile?.last_name,
+                            email: profile?.email,
+                            companyName: profile?.company_name,
                         };
                     }
                 } catch (error: any) {
@@ -67,6 +73,8 @@ const handler = NextAuth({
                 token.accountType = user.accountType;
                 token.firstName = user.firstName;
                 token.lastName = user.lastName;
+                token.email = user.email;
+                token.companyName = user.companyName;
             }
             return token;
         },
@@ -78,6 +86,8 @@ const handler = NextAuth({
                 accountType: token.accountType,
                 firstName: token.firstName,
                 lastName: token.lastName,
+                email: token.email,
+                companyName: token.companyName,
             };
             return session;
         },

@@ -1,133 +1,114 @@
+"use client";
 import Avatar from "@/components/shared/Avatar";
+import { DataTable } from "@/components/shared/DataTable";
 import Pill from "@/components/shared/Pill";
+import TableHeaderWithSearch from "@/components/shared/TableSearch";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import {
+    IUsageHistory,
+    usageHistoryColumns,
+} from "@/modules/admin/columns/usage-history-columns";
+
+export const usageHistoryData: IUsageHistory[] = [
+    {
+        date: "2025-07-25",
+        service_type: "Data",
+        subtype: "Internet Bundle",
+        quantity: "5",
+        unit_price: "200.00",
+        total: "1000.00",
+        status: "completed",
+    },
+    {
+        date: "2025-07-28",
+        service_type: "Airtime",
+        subtype: "MTN Recharge",
+        quantity: "1",
+        unit_price: "500.00",
+        total: "500.00",
+        status: "pending",
+    },
+    {
+        date: "2025-08-01",
+        service_type: "Utility",
+        subtype: "Electricity Payment",
+        quantity: "1",
+        unit_price: "7500.00",
+        total: "7500.00",
+        status: "failed",
+    },
+];
 
 export default function AdminUserListDetailPage() {
     return (
-        <section className="grid grid-cols-[1fr_2fr] gap-10">
-            <div className="space-y-5">
-                <div className="flex flex-col gap-5 items-center">
-                    <Avatar
-                        size="3xl"
-                        fallbackText="Dave Wilson"
-                        className="bg-gray-700"
-                    />
-                    <div className="md:text-center">
-                        <h3>Dave Wilson</h3>
-                        <p>ubakawilson@gmail.com</p>
-                        <Pill variant="pending" className="mt-3">
-                            Pending
-                        </Pill>
-                    </div>
-                </div>
-
-                <hr />
-
+        <section className="space-y-10">
+            <div className="grid grid-cols-[1fr_2fr] gap-10">
                 <div className="space-y-5">
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-gray-500">Account Type:</h3>
-                        <p className="text-gray-500">Individual</p>
+                    <div className="flex flex-col gap-5 items-center">
+                        <Avatar
+                            size="3xl"
+                            fallbackText="Dave Wilson"
+                            className="bg-gray-700"
+                        />
+                        <div className="md:text-center">
+                            <h3>Dave Wilson</h3>
+                            <p>ubakawilson@gmail.com</p>
+                            <Pill variant="pending" className="mt-3">
+                                Pending
+                            </Pill>
+                        </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-gray-500">Date Joined:</h3>
-                        <p className="text-green-500">05 Jan, 2025</p>
+                    <hr />
+
+                    <div className="space-y-5">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-gray-500">Wallet Balance</h3>
+                            <p className="text-gray-500">N20, 000</p>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-gray-500">Plan:</h3>
+                            <p className="text-green-500">Pay-as-you-go</p>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-gray-500">Duration</h3>
+                            <p className="text-gray-500">
+                                23rd July - 1st Aug 2025
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <div className="flex items-center justify-end gap-2 mt-20">
-                    <Button size="lg">Approve</Button>
-                    <Button size="lg" className="w-[40px] bg-gray-200">
-                        <ChevronDown />
-                    </Button>
+                <div className="flex items-end">
+                    <div className="space-x-2">
+                        <Button
+                            size="lg"
+                            className="bg-[#F5E9001A] text-primary"
+                        >
+                            Suspend account
+                        </Button>
+                        <Button
+                            size="lg"
+                            className="bg-[#F5E9001A] text-primary"
+                        >
+                            Send renewal message
+                        </Button>
+                    </div>
                 </div>
             </div>
 
-            <div className="bg-[#E5E7EB1A]">
-                <h2 className="p-5">Compliance Details</h2>
-
-                <hr className="border-[#E5E7EB1A]" />
-
-                <div className="p-5 flex gap-20">
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Full Name</h3>
-                        <p className="text-base">Dave Wilson</p>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Email Address</h3>
-                        <p className="text-base">ubakawilson@gmail.com</p>
-                    </div>
-                </div>
-
-                <hr className="border-[#E5E7EB1A]" />
-
-                <div className="p-5 flex gap-20">
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Means of Identification</h3>
-                        <p className="text-base">NIN</p>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">ID Number</h3>
-                        <p className="text-base">1D2F1H438J</p>
-                    </div>
-                </div>
-
-                <hr className="border-[#E5E7EB1A]" />
-
-                <div className="p-5 flex gap-20">
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Gender</h3>
-                        <p className="text-base">Male</p>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Date of Birth</h3>
-                        <p className="text-base">10-May-1992</p>
-                    </div>
-                </div>
-
-                <div className="p-5 flex gap-20">
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Phone Number</h3>
-                        <p className="text-base">+2348104478624</p>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Address</h3>
-                        <p className="text-base">
-                            12 Erelu Danisa Street off Adeshina
-                        </p>
-                    </div>
-                </div>
-
-                <hr className="border-[#E5E7EB1A]" />
-
-                <div className="p-5 flex gap-20">
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">City</h3>
-                        <p className="text-base">Lagos</p>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Country</h3>
-                        <p className="text-base">Nigeria</p>
-                    </div>
-                </div>
-
-                <hr className="border-[#E5E7EB1A]" />
-
-                <div className="p-5 flex gap-20">
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Government ID</h3>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h3 className="text-[12px]">Utility Bill</h3>
-                    </div>
-                </div>
+            <div>
+                <TableHeaderWithSearch
+                    title="Usage History"
+                    search=""
+                    setSearch={() => {}}
+                />
+                <DataTable
+                    columns={usageHistoryColumns}
+                    data={usageHistoryData}
+                />
             </div>
         </section>
     );

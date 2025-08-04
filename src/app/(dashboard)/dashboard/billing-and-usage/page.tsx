@@ -1,13 +1,13 @@
 "use client";
-import DashboardCard from "@/components/dashboard/DashboardCard";
 import { DataTable } from "@/components/shared/DataTable";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DASHBOARD_ROUTES } from "@/constants/routes";
-import { billingHistoryColumns } from "@/modules/company/dashboard/columns/billing-history";
-import useGetTransactionsController from "@/modules/company/dashboard/controllers/billing-plans/getTransactionsController";
-import useGetUserActivePlanController from "@/modules/company/dashboard/controllers/billing-plans/getUserActivePlanController";
-import useGetWalletBalanceController from "@/modules/company/dashboard/controllers/billing-plans/getWalletBalanceController";
+import { billingHistoryColumns } from "@/modules/dashboard/columns/billing-history";
+import DashboardCard from "@/modules/dashboard/components/DashboardCard";
+import useGetTransactionsController from "@/modules/dashboard/controllers/billing-plans/getTransactionsController";
+import useGetUserActivePlanController from "@/modules/dashboard/controllers/billing-plans/getUserActivePlanController";
+import useGetWalletBalanceController from "@/modules/dashboard/controllers/billing-plans/getWalletBalanceController";
 import Link from "next/link";
 import { FaTimes } from "react-icons/fa";
 

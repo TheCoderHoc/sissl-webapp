@@ -4,7 +4,7 @@ import { DASHBOARD_ROUTES } from "@/constants/routes";
 import {
     CompanyComplianceContext,
     CompanyComplianceContextInterface,
-} from "@/modules/company/dashboard/context/company-compliance";
+} from "@/modules/dashboard/context/company-compliance";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -21,8 +21,6 @@ const defaultComplianceData: CompanyComplianceContextInterface = {
     proof_of_address: "",
     government_id: "",
 };
-
-// Define the context shape
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [data, setData] = useState<CompanyComplianceContextInterface>(

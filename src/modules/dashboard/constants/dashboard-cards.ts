@@ -23,7 +23,7 @@ export const dashboardNavCards = [
         description:
             "You're in a test mode environment. Please verify your account to get started. Click to verify",
         icon: DashboardGetStartedIcon,
-        href: "/",
+        href: DASHBOARD_ROUTES.COMPANY_COMPLIANCE_INFORMATION,
     },
 
     {
@@ -33,7 +33,7 @@ export const dashboardNavCards = [
         description:
             "Validate user identity through biometric checks and document verification",
         icon: DashboardVerificationIcon,
-        href: "/",
+        href: IDENTITY_VERIFICATION_ROUTES.HOME,
     },
 
     {
@@ -43,7 +43,7 @@ export const dashboardNavCards = [
         description:
             "Ensure trust and reliability with thorough verification of referees and guarantors",
         icon: DashboardRefereeIcon,
-        href: "/",
+        href: REFEREE_GUARANTOR_ROUTES.HOME,
     },
 
     {
@@ -53,7 +53,7 @@ export const dashboardNavCards = [
         description:
             "Verify the authenticity of staff identities and supporting documents with confidence",
         icon: DashboardStaffVerificationIcon,
-        href: "/",
+        href: STAFF_VERIFICATION_ROUTES.HOME,
     },
 
     {
@@ -63,7 +63,7 @@ export const dashboardNavCards = [
         description:
             "Ensure smooth and secure event management by verifying guests from registration to entry",
         icon: DashboardEventIcon,
-        href: "/",
+        href: EVENT_MANAGEMENT_ROUTES.HOME,
     },
 
     {
@@ -73,7 +73,7 @@ export const dashboardNavCards = [
         description:
             "Check utility bills, ID scans, and other documents for signs of fraud",
         icon: DashboardDocumentIcon,
-        href: "/",
+        href: DOCUMENT_VERIFICATION_ROUTES.HOME,
     },
 
     {
@@ -83,6 +83,6 @@ export const dashboardNavCards = [
         description:
             "Ensure both individuals and businesses meet regulatory requirements",
         icon: DashboardComplianceIcon,
-        href: "/",
+        href: KYB_KYC_ROUTES.HOME,
     },
 ];

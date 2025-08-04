@@ -4,9 +4,9 @@ import Link from "next/link";
 interface IProps {
     title: string;
     description: string;
-    href: string;
-    mobileTitle: string;
-    icon: any;
+    href?: string;
+    mobileTitle?: string;
+    icon?: any;
 }
 
 export default function DashboardNavCard({
@@ -17,7 +17,7 @@ export default function DashboardNavCard({
     icon: Icon,
 }: IProps) {
     return (
-        <Link href={href}>
+        <Link href={href ?? ""}>
             <Card
                 className={`flex flex-col items-center justify-center gap-4 text-center md:px-6 md:py-12 cursor-pointer md:hover:bg-gray-700 transition-colors duration-100 border-none bg-transparent`}
             >
