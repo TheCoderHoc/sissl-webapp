@@ -111,7 +111,7 @@ const TicketBaseEvent = () => {
                 <button
                   type="button"
                   onClick={() => setShowTicketModal(true)}
-                  className="bg-si_yellow hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
+                  className="bg-primary hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
                 >
                   Set up ticket
                 </button>
@@ -130,7 +130,7 @@ const TicketBaseEvent = () => {
                   <button
                     type="button"
                     onClick={() => setShowTicketModal(true)}
-                    className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                    className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                   >
                     Set up ticket
                   </button>
@@ -144,7 +144,7 @@ const TicketBaseEvent = () => {
                     <button
                       type="button"
                       onClick={() => setShowTicketModal(true)}
-                      className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                      className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                     >
                       Add ticket
                     </button>
@@ -173,7 +173,7 @@ const TicketBaseEvent = () => {
                 <button
                   type="button"
                   onClick={() => setShowAccountModal(true)}
-                  className="bg-si_yellow hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
+                  className="bg-primary hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
                 >
                   Set up account
                 </button>
@@ -191,7 +191,7 @@ const TicketBaseEvent = () => {
                   <button
                     type="button"
                     onClick={() => setShowAccountModal(true)}
-                    className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                    className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                   >
                     Set up account
                   </button>
@@ -205,7 +205,7 @@ const TicketBaseEvent = () => {
                     <button
                       type="button"
                       onClick={() => setShowAccountModal(true)}
-                      className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                      className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                     >
                       Edit details
                     </button>

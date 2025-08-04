@@ -120,8 +120,8 @@ const CelebrationEvent = () => {
                 disabled={!enableGifts}
                 className={`px-4 py-2 w-[150px] h-[48px] text-black rounded-lg text-sm font-medium transition ${
                   enableGifts
-                    ? "bg-si_yellow hover:bg-yellow-300"
-                    : "bg-si_yellow opacity-50 cursor-not-allowed"
+                    ? "bg-primary hover:bg-yellow-300"
+                    : "bg-primary opacity-50 cursor-not-allowed"
                 }`}
               >
                 Set up gift
@@ -153,8 +153,8 @@ const CelebrationEvent = () => {
                 onClick={() => setShowAccountModal(true)}
                 className={`px-4 py-2 w-[150px] h-[48px] text-black rounded-lg text-sm font-medium transition ${
                   enableCash
-                    ? "bg-si_yellow hover:bg-yellow-300"
-                    : "bg-si_yellow opacity-50 cursor-not-allowed"
+                    ? "bg-primary hover:bg-yellow-300"
+                    : "bg-primary opacity-50 cursor-not-allowed"
                 }`}
               >
                 Set up account
