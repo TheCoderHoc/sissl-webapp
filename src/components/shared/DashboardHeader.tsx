@@ -16,7 +16,6 @@ const DashboardHeader = () => {
     const [isOn, setToggle] = useToggle(false);
 
     const theme = useTheme();
-    console.log({ theme });
 
     const pageTitle = usePageTitleStore((state) => state.title);
     const { toggleSidebar, isOpen } = useSidebarStore();
@@ -48,7 +47,7 @@ const DashboardHeader = () => {
             <div className="flex items-center gap-20">
                 <div className="flex items-center gap-2">
                     <Switch checked={isOn} onCheckedChange={setToggle} />
-                    <span>{isOn ? "Live" : "Test"}</span>
+                    <span>{isOn ? "Live" : "Sandbox mode"}</span>
                 </div>
 
                 <PopOver content={<ProfileDropdown />}>
@@ -56,7 +55,11 @@ const DashboardHeader = () => {
                         variant="ghost"
                         className="flex items-center gap-2 no-underline py-6"
                     >
-                        <Avatar size="lg" fallbackText="Dave Wilson" />
+                        <Avatar
+                            size="lg"
+                            fallbackText="Dave Wilson"
+                            className="bg-gray-700"
+                        />
                         <div>
                             <h3>
                                 {first_name} {last_name}

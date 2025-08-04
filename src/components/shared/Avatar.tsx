@@ -37,7 +37,7 @@ export default function Avatar({
     return (
         <BaseAvatar className={cn(avatarSizes[size], className)}>
             <AvatarImage src={src} alt={alt} />
-            <AvatarFallback className="font-bold">
+            <AvatarFallback className={cn("font-bold", className)}>
                 {fallback || <User />}
             </AvatarFallback>
         </BaseAvatar>

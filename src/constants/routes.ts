@@ -70,3 +70,12 @@ export enum EVENT_MANAGEMENT_ROUTES {
     EVENT_MANAGEMENT = "/event-management/event-management",
     EVENT_ANALYTICS = "/event-management/analytics",
 }
+
+// ADMIN ROUTES
+export enum ADMIN_DASHBOARD_ROUTES {
+    HOME = "/user-management",
+    REGISTRATION_REVIEW = "/registration-review",
+    USER_BILLING = "/user-billing",
+    VERIFICATION = "/verification",
+    ID_VERIFICATION = "/verification/id-verification",
+}

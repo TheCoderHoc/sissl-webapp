@@ -2,26 +2,17 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import useUserStore from "@/stores/userStore";
 import { profileDropdownLinks } from "@/constants/profile-dropdown";
 
 export default function ProfileDropdown() {
-    const {
-        user: { first_name },
-        clearUser,
-    } = useUserStore();
-
     const router = useRouter();
 
-    const handleLogout = () => {
-        clearUser();
-        router.push("/auth/login");
-    };
+    const handleLogout = () => {};
 
     return (
         <div className="p-2 space-y-6">
             <h3 className="text-md font-medium">
-                <span className="font-normal">Hello,</span> {first_name}
+                <span className="font-normal">Hello,</span> Dave
             </h3>
 
             <div className="space-y-5">

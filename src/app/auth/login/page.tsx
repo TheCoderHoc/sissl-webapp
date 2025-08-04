@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { AUTH_ROUTES } from "@/constants/routes/auth";
 import useResendOtpController from "@/modules/auth/controllers/useResendOtpController";
 import { toast } from "sonner";
+import { DASHBOARD_ROUTES } from "@/constants/routes";
 
 export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +66,10 @@ export default function LoginPage() {
         }
 
         if (res?.ok) {
-            router.replace("/dashboard");
+            const sessionRes = await fetch("/api/auth/session");
+            const session = await sessionRes.json();
+
+            router.push(DASHBOARD_ROUTES.HOME);
         }
     };
 

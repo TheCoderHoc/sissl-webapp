@@ -9,7 +9,7 @@ interface IProps {
 
 export default function AnalyticCard({ label, value, icon }: IProps) {
     return (
-        <Card className="px-4 py-2 border-gray-700">
+        <Card className="px-4 py-2 border-none">
             <div className="flex items-center justify-between">
                 <div>
                     <h3 className="text-sm">{label}</h3>
