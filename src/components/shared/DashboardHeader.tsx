@@ -6,23 +6,25 @@ import useSidebarStore from "@/stores/sideBarStore";
 import PopOver from "../shared/PopOver";
 import Avatar from "../shared/Avatar";
 import { Button } from "../ui/button";
-import useUserStore from "@/stores/userStore";
 import { Switch } from "../ui/switch";
 import ProfileDropdown from "./ProfileDropdown";
 import useToggle from "@/hooks/useToggle";
-import { useTheme } from "next-themes";
+import { useSession } from "next-auth/react";
 
 const DashboardHeader = () => {
     const [isOn, setToggle] = useToggle(false);
 
-    const theme = useTheme();
 
     const pageTitle = usePageTitleStore((state) => state.title);
     const { toggleSidebar, isOpen } = useSidebarStore();
 
+    const { data: session } = useSession();
+
+    if (!session) return null;
+
     const {
-        user: { first_name, last_name, email },
-    } = useUserStore();
+        user: { firstName, lastName, email },
+    } = session;
 
     return (
         <header
@@ -62,7 +64,7 @@ const DashboardHeader = () => {
                         />
                         <div>
                             <h3>
-                                {first_name} {last_name}
+                                {firstName} {lastName}
                             </h3>
                             <span className="font-thin text-sm">{email}</span>
                         </div>
