@@ -3,10 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
-import { dashboardKey } from "@/public/images";
-import CustomLoader from "@/components/ui/customLoader";
-import { Success } from "@/public/icons";
-import useGetServices from "@/modules/company/dashboard/controllers/useGetServicesController";
+// import { dashboardKey } from "@/public/images";
+// import CustomLoader from "@/components/ui/customLoader";
+// import { Success } from "@/public/icons";
+import useGetServices from "@/modules/dashboard/controllers/useGetServicesController";
+import { Success } from "../../../../../../public/icons";
+import { dashboardKey } from "../../../../../../public/images";
+// import useGetServices from "@/modules/company/dashboard/controllers/useGetServicesController";
 
 interface Errors {
     apiName?: string;
@@ -191,7 +194,7 @@ const CreateApiKeyPage: React.FC = () => {
 
                     {loading || isLoading ? (
                         <div className="flex justify-center pt-10">
-                            <CustomLoader />
+                            {/* <CustomLoader /> */}
                         </div>
                     ) : (
                         <form
@@ -337,7 +340,7 @@ const CreateApiKeyPage: React.FC = () => {
                             </>
                         ) : (
                             <>
-                                <CustomLoader />
+                                {/* <CustomLoader /> */}
                                 <p className="mt-3 text-white text-lg">
                                     {isEditMode ? "Updating" : "Creating"} API
                                     key...

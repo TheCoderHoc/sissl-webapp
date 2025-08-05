@@ -70,7 +70,7 @@ export const fraudColumns = (): ColumnDef<IFraudUser>[] => [
       const cleanId = userId.replace(/^#/, "");
       return (
         <Link
-          href={`/dashboard/fraud-risk-intelligence/${cleanId}`}
+          href={`/fraud-risk-intelligence/${cleanId}`}
           className="bg-yellow-400 hover:bg-yellow-300 text-black font-medium text-xs px-3 py-1 rounded-md"
         >
           View report
