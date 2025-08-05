@@ -1,7 +1,7 @@
 "use client";
 import { DataTable } from "@/components/shared/DataTable";
-import GreetUser from "@/components/shared/GreetUser";
-import TableHeaderWithSearch from "@/components/shared/TableSearch";
+// import GreetUser from "@/components/shared/GreetUser";
+// import TableHeaderWithSearch from "@/components/shared/TableSearch";
 import {
     ISubscriber,
     subscriberColumns,

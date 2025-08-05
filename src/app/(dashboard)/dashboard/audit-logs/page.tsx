@@ -1,8 +1,8 @@
 "use client";
 
 import { DataTable } from "@/components/shared/DataTable";
-import { auditLogColumns } from "@/modules/company/dashboard/columns/audit-log";
-import NoteCheckmarkIcon from "@/public/icons/NoteCheckmark";
+import { auditLogColumns } from "@/modules/dashboard/columns/audit-log";
+import NoteCheckmarkIcon from "../../../../../public/icons/NoteCheckmark";
 
 
 export default function AuditLogs() {

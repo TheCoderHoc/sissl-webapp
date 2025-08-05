@@ -1,5 +1,5 @@
 import useApiManager from "@/constants/controllers/mainController";
-import { WebhookResponse } from "../../../auth/models/apiResponse";
+import { WebhookResponse } from "@/modules/auth/models/apiResponse";
 
 export interface CreateWebhookPayload {
     name: string;

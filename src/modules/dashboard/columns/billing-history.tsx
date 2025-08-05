@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { ITransactionResponseData } from "../../../dashboard/types/billing";
 import Pill from "@/components/shared/Pill";
 import { formatDate } from "@/utils/formatDate";
+import { ITransactionResponseData } from "../types/billing";
 
 export interface IBilling {
     reference: string;

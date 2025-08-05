@@ -2,27 +2,24 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
-import Modal from "@/components/shared/Modal";
+// import { useRouter } from "next/navigation";
 import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
 import UploadArea from "@/components/shared/UploadArea";
-import { LoadingModal } from "../ApiKeyModal";
-import { useIdentityFormContext } from "@/modules/company/identity-verification/context/identityVerificationContext";
-import useIdentityVerificationController from "@/modules/company/identity-verification/controllers/identityVerificationController";
-import { idVerificationSchema } from "@/modules/company/identity-verification/lib/validators";
 import { zodResolver } from "@hookform/resolvers/zod";
-import showToast from "@/components/ui/CustomToastContainer";
 import { Form } from "@/components/ui/form";
 import { X } from "lucide-react";
+import { idVerificationSchema } from "@/modules/identity-verification/lib/validators";
+import { useIdentityFormContext } from "@/modules/identity-verification/context/identityVerificationContext";
+// import useIdentityVerificationController from "@/modules/identity-verification/controllers/identityVerificationController";
+import { toast } from "sonner";
 
 export default function IdentityUploadModal({
     setShowModal,
 }: {
     setShowModal: (val: boolean) => void;
 }) {
-    const router = useRouter();
+    // const router = useRouter();
 
     const form = useForm({
         resolver: zodResolver(idVerificationSchema),
@@ -35,13 +32,13 @@ export default function IdentityUploadModal({
 
     const { formData, setFormData } = useIdentityFormContext()!;
     const [documentUrl, setDocumentUrl] = useState("");
-    const { verifyIdentity, isLoading } = useIdentityVerificationController();
+    // const { verifyIdentity, isLoading } = useIdentityVerificationController();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const isValid = await form.trigger();
         if (!isValid) {
-            showToast.error("Please complete all fields correctly.");
+            toast.error("Please complete all fields correctly.");
             return;
         }
 
@@ -55,8 +52,8 @@ export default function IdentityUploadModal({
         };
         setFormData(updatedFormData);
         try {
-            const response = await verifyIdentity(updatedFormData);
-            router.push(`/identity-verification/${response.id}`);
+            // const response = await verifyIdentity(updatedFormData);
+            // router.push(`/identity-verification/${response.id}`);
             setShowModal(false);
         } catch (err) {
             console.error("Verification failed", err);
@@ -142,12 +139,12 @@ export default function IdentityUploadModal({
                 </div>
             </div>
 
-            {isLoading && (
+            {/* {isLoading && (
                 <LoadingModal
                     text1="Verifying ID..."
                     text2="Please wait a moment..."
                 />
-            )}
+            )} */}
         </>
     );
 }

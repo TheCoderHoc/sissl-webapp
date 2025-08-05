@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { complianceStatusInfo } from "@/modules/company/dashboard/constants/compliance-status-details";
+import { companyComplianceStatusInfo } from "@/modules/dashboard/constants/compliance-status-details";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,7 +8,7 @@ export default function ComplianceStatus() {
     const status = "Pending";
 
     const { message, btnClassName, imageSrc, btnLabel, btnHref } =
-        complianceStatusInfo[status];
+        companyComplianceStatusInfo[status];
 
     return (
         <section className="space-y-10">

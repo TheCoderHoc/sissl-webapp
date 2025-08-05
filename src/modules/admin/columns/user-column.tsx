@@ -8,7 +8,6 @@ import Pill from "@/components/shared/Pill";
 import HorizontalDotsIcon from "../../../../public/icons/HorizontalDots";
 import { useMemo } from "react";
 import Dropdown, { IDropdownMenu } from "@/components/shared/Dropdown";
-import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { ADMIN_DASHBOARD_ROUTES } from "@/constants/routes";
 
@@ -77,8 +76,7 @@ export const userColumns: ColumnDef<IUser>[] = [
     {
         header: "Action",
         id: "action",
-        cell: ({ row }) => {
-            const userData = row.original;
+        cell: () => {
             return <TableActionMenu />;
         },
     },

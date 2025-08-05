@@ -1,7 +1,9 @@
 "use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import SubscriptionPlanCard from "@/modules/company/dashboard/components/SubscriptionPlanCard";
-import useGetBillingPlans from "@/modules/company/dashboard/controllers/billing-plans/getBillingPlans";
+import SubscriptionPlanCard from "@/modules/dashboard/components/SubscriptionPlanCard";
+import useGetBillingPlans from "@/modules/dashboard/controllers/billing-plans/getBillingPlans";
+
 
 export default function ChooseSubscriptionPlanPage() {
     const { data: billingPlans } = useGetBillingPlans({ enabled: true });

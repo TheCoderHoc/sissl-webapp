@@ -1,15 +1,12 @@
 "use client";
 import { Card } from "@/components/ui/card";
-import PaymentForm from "@/modules/company/dashboard/components/PaymentInterface";
-import useGetSingleBillingPlan from "@/modules/company/dashboard/controllers/billing-plans/getSingleBillingPlan";
-import BillingPlanIcon from "@/public/icons/BillingPlan";
+import useGetSingleBillingPlan from "@/modules/dashboard/controllers/billing-plans/getSingleBillingPlan";
 import { useParams } from "next/navigation";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import BillingPlanIcon from "../../../../../../../public/icons/BillingPlan";
 
 export default function SubscriptionPlanPayment() {
     const { planId } = useParams();
-
-    // const [paymentMethod, setPaymentMethod] = useState<"card" | "bank">("card");
 
     const { data: billingPlan } = useGetSingleBillingPlan({
         enabled: true,
@@ -49,9 +46,6 @@ export default function SubscriptionPlanPayment() {
                     ))}
                 </ul>
             </Card>
-
-            {/* @ts-expect-error Some error */}
-            <PaymentForm paymentType="subscription" />
         </section>
     );
 }

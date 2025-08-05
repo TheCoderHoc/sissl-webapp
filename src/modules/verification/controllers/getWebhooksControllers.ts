@@ -1,7 +1,7 @@
 import AxiosWithToken from "@/constants/api_management/MyHttpHelperWithToken";
+import { GetApiResponse } from "@/modules/auth/models/apiResponse";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { GetApiResponse } from "../../../auth/models/apiResponse";
 
 const useGetWebHooksController = ({ enabled = true }) => {
     return useQuery<GetApiResponse, AxiosError<GetApiResponse>>({

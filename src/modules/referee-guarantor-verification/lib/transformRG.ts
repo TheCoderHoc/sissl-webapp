@@ -1,4 +1,5 @@
-import { StaffVerificationResponse } from "@/modules/company/staff-verification/models/types";
+import { StaffVerificationResponse } from "@/modules/staff-verification/models/types";
+
 type RGVerificationRow = {
     id?: string;
     staff_name: string;

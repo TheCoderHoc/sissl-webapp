@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import AxiosWithToken from "@/constants/api_management/MyHttpHelperWithToken";
 import { IPaginatedResponse } from "@/types";
-import { ITransactionResponseData } from "../../../../dashboard/types/billing";
+import { ITransactionResponseData } from "../../types/billing";
 
 const useGetTransactionsController = ({
     enabled = true,

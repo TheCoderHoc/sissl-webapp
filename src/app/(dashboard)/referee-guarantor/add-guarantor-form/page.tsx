@@ -9,6 +9,7 @@ import { addGuarantorSchema } from "@/modules/staff-verification/lib/validators"
 import useAddGuarantorController from "@/modules/staff-verification/controllers/addGuarantorController";
 import { toast } from "sonner";
 import { companyDashBlack } from "../../../../../public/images";
+import Image from "next/image";
 
 export default function AddGuarantorForm() {
     const router = useRouter();
@@ -154,10 +155,12 @@ export default function AddGuarantorForm() {
                     </div>
 
                     <div className="flex justify-center w-[57%] h-full pt-12">
-                        <img
+                        <Image
                             src={companyDashBlack.src}
                             alt="illustration"
                             className="w-[55%]"
+                            width={1000}
+                            height={1000}
                         />
                     </div>
                 </form>

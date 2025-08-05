@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import CopyAltIcon from "@/public/icons/CopyAlt";
-import EyeIcon from "@/public/icons/Eye";
+import CopyAltIcon from "../../../../public/icons/CopyAlt";
+import EyeIcon from "../../../../public/icons/Eye";
 
 export default function WebHookItem() {
     return (

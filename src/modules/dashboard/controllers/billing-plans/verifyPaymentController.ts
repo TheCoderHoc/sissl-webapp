@@ -1,5 +1,5 @@
 import useApiManager from "@/constants/controllers/mainController";
-import { IPaymentInitiationResponseData } from "../../../../dashboard/types/billing";
+import { IPaymentInitiationResponseData } from "../../types/billing";
 
 export const useVerifyPayment = () => {
     const { callApi, isLoading, isSuccess, error, data } = useApiManager<

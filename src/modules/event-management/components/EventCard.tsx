@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import PartyIcon from "@/public/icons/Party";
+import PartyIcon from "../../../../public/icons/Party";
 
 interface IProps {
     title: string;

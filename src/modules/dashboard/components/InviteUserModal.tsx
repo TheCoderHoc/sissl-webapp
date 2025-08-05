@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import useCreateTeamController from "../controllers/useCreateTeamController";
 import { Success } from "../../../../public/icons";
+import Image from "next/image";
 
 interface InviteUserModalProps {
     open: boolean;
@@ -327,7 +328,12 @@ export default function InviteUserModal({
                             <Dialog.Title className="sr-only">
                                 Success
                             </Dialog.Title>
-                            <img src={Success.src} alt="success" />
+                            <Image
+                                src={Success.src}
+                                alt="success"
+                                width={1000}
+                                height={1000}
+                            />
                             <p className="text-white text-center text-lg mt-3">
                                 User successfully invited
                             </p>

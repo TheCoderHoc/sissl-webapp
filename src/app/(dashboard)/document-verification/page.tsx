@@ -6,30 +6,30 @@ import IdentityCenterIntro from "@/components/shared/VerificationsOptions";
 import { DataTable } from "@/components/shared/DataTable";
 import { useRouter } from "next/navigation";
 import { DOCUMENT_VERIFICATION_ROUTES } from "@/constants/routes";
-import Loading from "@/app/loading";
-import useGetDocumentVerifications from "@/modules/document-verification/controllers/getDocumentVerificationsController";
-import { transformDocumentData } from "@/modules/document-verification/lib/transformDocumentData";
+// import Loading from "@/app/loading";
+// import useGetDocumentVerifications from "@/modules/document-verification/controllers/getDocumentVerificationsController";
+// import { transformDocumentData } from "@/modules/document-verification/lib/transformDocumentData";
 import TableHeaderWithSearch from "@/components/shared/TableSearch";
 import { documentColumns } from "@/modules/document-verification/columns/DocumentTable";
 import DocumentUploadModal from "@/modules/document-verification/components/DocumentUploadModal";
 
 export default function DocumentVerification() {
-    const { data, isLoading } = useGetDocumentVerifications();
+    // const { data, isLoading } = useGetDocumentVerifications();
 
     const router = useRouter();
 
     const [search, setSearch] = useState("");
     const [showModal, setShowModal] = useState(false);
-    const transformedData = data?.data?.results
-        ? transformDocumentData(data.data.results)
-        : [];
+    // const transformedData = data?.data?.results
+    //     ? transformDocumentData(data.data.results)
+    //     : [];
 
-    const filteredData = transformedData.filter(
-        (item) =>
-            item.document_type.toLowerCase().includes(search.toLowerCase()) ||
-            item.submittedBy.toLowerCase().includes(search.toLowerCase()) ||
-            item.id.toLowerCase().includes(search.toLowerCase())
-    );
+    // const filteredData = transformedData.filter(
+    //     (item) =>
+    //         item.document_type.toLowerCase().includes(search.toLowerCase()) ||
+    //         item.submittedBy.toLowerCase().includes(search.toLowerCase()) ||
+    //         item.id.toLowerCase().includes(search.toLowerCase())
+    // );
 
     const handleActionClick = (id?: string) => {
         if (id) {
@@ -71,7 +71,8 @@ export default function DocumentVerification() {
 
                         <DataTable
                             columns={documentColumns(handleActionClick)}
-                            data={filteredData}
+                            // data={filteredData}
+                            data={[]}
                         />
                     </div>
                 </div>

@@ -11,31 +11,33 @@ import { event_overview2 } from "../../../../public/images";
 import TableHeaderWithSearch from "@/components/shared/TableSearch";
 
 const EventManagementHome = () => {
-  const router = useRouter();
-  const [search, setSearch] = useState("");
+    const router = useRouter();
+    const [search, setSearch] = useState("");
 
-  return (
-    <div className="max-w-7xl mx-auto px-6">
-      <DashboardHeading text="Welcome to SISSL Event management. We provide tools to help you host and manage event" />
-      <IdentityCenterIntro
-        title="Host Event"
-        description="Host your next event here"
-        primaryButtonText="Create Event"
-        onPrimaryClick={() => router.push(EVENT_MANAGEMENT_ROUTES.CREATE_EVENT)}
-        image={event_overview2.src}
-        largeImage
-      />
+    return (
+        <div className="max-w-7xl mx-auto px-6">
+            <DashboardHeading text="Welcome to SISSL Event management. We provide tools to help you host and manage event" />
+            <IdentityCenterIntro
+                title="Host Event"
+                description="Host your next event here"
+                primaryButtonText="Create Event"
+                onPrimaryClick={() =>
+                    router.push(EVENT_MANAGEMENT_ROUTES.CREATE_EVENT)
+                }
+                image={event_overview2.src}
+                largeImage
+            />
 
-      <TableHeaderWithSearch
-        title="My Events"
-        search={search}
-        setSearch={setSearch}
-        searchPlaceholder="Search for event"
-        filterText="filter event type"
-      />
+            <TableHeaderWithSearch
+                title="My Events"
+                search={search}
+                setSearch={setSearch}
+                searchPlaceholder="Search for event"
+                filterText="filter event type"
+            />
 
-      <DataTable columns={eventColumns} data={[]} />
-    </div>
-  );
+            <DataTable columns={eventColumns} data={[]} />
+        </div>
+    );
 };
 export default EventManagementHome;
