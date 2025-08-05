@@ -10,7 +10,7 @@ export interface GetApiResponse {
     title: string;
     type: string;
     key: string;
-    source: string;
+    source?: string;
 }
 
 export interface WebhookResponse {
