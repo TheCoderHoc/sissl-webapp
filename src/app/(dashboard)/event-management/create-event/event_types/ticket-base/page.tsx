@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import TicketSetup from "@/modules/event-management/components/TicketSetup";
-import AccountSetup from "@/modules/event-management/components/AccountSetup";
+import AccountSetup from "@/modules/event-management/components/old/AccountSetup";
 import Ticket from "@/modules/event-management/components/Ticket";
 
 const TicketBaseEvent = () => {

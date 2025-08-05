@@ -9,7 +9,7 @@ import UploadArea from "@/components/shared/UploadArea";
 import { Textarea } from "@/components/ui/textarea";
 // import { Switch } from "@/components/ui/switch";
 import Switch from "@/modules/event-management/components/Switch";
-import AccountSetup from "@/modules/event-management/components/AccountSetup";
+import AccountSetup from "@/modules/event-management/components/old/AccountSetup";
 const CelebrationEvent = () => {
   const form = useForm();
   const [documentUrl, setDocumentUrl] = useState("");
