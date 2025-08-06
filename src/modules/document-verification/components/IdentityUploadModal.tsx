@@ -2,22 +2,18 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
 import UploadArea from "@/components/shared/UploadArea";
 import { LoadingModal } from "../../../components/shared/LoadingModal";
-import { useIdentityFormContext } from "@/modules/identity-verification/context/identityVerificationContext";
 import useIdentityVerificationController from "@/modules/identity-verification/controllers/identityVerificationController";
-import { idVerificationSchema } from "@/modules/identity-verification/lib/validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Form } from "@/components/ui/form";
 import { X } from "lucide-react";
 import { idVerificationSchema } from "@/modules/identity-verification/lib/validators";
 import { useIdentityFormContext } from "@/modules/identity-verification/context/identityVerificationContext";
-// import useIdentityVerificationController from "@/modules/identity-verification/controllers/identityVerificationController";
-import { toast } from "sonner";
 
 export default function IdentityUploadModal({
   setShowModal,
