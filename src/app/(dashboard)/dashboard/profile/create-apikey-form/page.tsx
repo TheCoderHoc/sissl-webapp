@@ -1,29 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
-// import { dashboardKey } from "@/public/images";
 // import CustomLoader from "@/components/ui/customLoader";
-// import { Success } from "@/public/icons";
+import { Success } from "@/public/icons";
 import useGetServices from "@/modules/dashboard/controllers/useGetServicesController";
-import { Success } from "../../../../../../public/icons";
-import { dashboardKey } from "../../../../../../public/images";
+import { dashboardKey } from "@/public/images";
 // import useGetServices from "@/modules/company/dashboard/controllers/useGetServicesController";
+import Image from 'next/image'
+
 
 interface Errors {
     apiName?: string;
     description?: string;
 }
 
-// interface GroupedService {
-//     id: string;
-//     name: string;
-//     services: {
-//         id: string;
-//         name: string;
-//     }[];
-// }
+// Comment starts here
+
+interface GroupedService {
+    id: string;
+    name: string;
+    services: {
+        id: string;
+        name: string;
+    }[];
+}
+
+// comment stops here
 
 const CreateApiKeyPage: React.FC = () => {
     const router = useRouter();
@@ -38,146 +42,151 @@ const CreateApiKeyPage: React.FC = () => {
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // const [groupedServices, setGroupedServices] = useState<GroupedService[]>(
-    //     []
-    // );
-    // const [selectedServiceIds, setSelectedServiceIds] = useState<Set<string>>(
-    //     new Set()
-    // );
 
-    // const { data: serviceData, isLoading } = useGetServices();
+    // Comments start here 
+
+    const [groupedServices, setGroupedServices] = useState<GroupedService[]>(
+        []
+    );
+    const [selectedServiceIds, setSelectedServiceIds] = useState<Set<string>>(
+        new Set()
+    );
+
+    const { data: serviceData, isLoading } = useGetServices();
 
     // Fetch and transform service data
-    // useEffect(() => {
-    //     if (serviceData?.data?.results) {
-    //         const transformed = serviceData.data.results.map((group) => ({
-    //             id: group.id,
-    //             name: group.name,
-    //             services: (group.services || []).map((s) => ({
-    //                 id: s.id,
-    //                 name: s.name,
-    //             })),
-    //         }));
-    //         setGroupedServices(transformed);
-    //     }
-    // }, [serviceData]);
+    useEffect(() => {
+        if (serviceData?.data?.results) {
+            const transformed = serviceData.data.results.map((group) => ({
+                id: group.id,
+                name: group.name,
+                services: (group.services || []).map((s) => ({
+                    id: s.id,
+                    name: s.name,
+                })),
+            }));
+            setGroupedServices(transformed);
+        }
+    }, [serviceData]);
 
     // Toggle individual service
-    // const toggleService = (serviceId: string) => {
-    //     setSelectedServiceIds((prev) => {
-    //         const newSet = new Set(prev);
-    //         if (newSet.has(serviceId)) {
-    //             newSet.delete(serviceId);
-    //         } else {
-    //             newSet.add(serviceId);
-    //         }
-    //         return newSet;
-    //     });
-    // };
+    const toggleService = (serviceId: string) => {
+        setSelectedServiceIds((prev) => {
+            const newSet = new Set(prev);
+            if (newSet.has(serviceId)) {
+                newSet.delete(serviceId);
+            } else {
+                newSet.add(serviceId);
+            }
+            return newSet;
+        });
+    };
 
     // Toggle all services in a group
-    // const toggleGroup = (group: GroupedService) => {
-    //     const allSelected = group.services.every((service) =>
-    //         selectedServiceIds.has(service.id)
-    //     );
-    //     setSelectedServiceIds((prev) => {
-    //         const newSet = new Set(prev);
-    //         group.services.forEach((service) => {
-    //             if (allSelected) {
-    //                 newSet.delete(service.id);
-    //             } else {
-    //                 newSet.add(service.id);
-    //             }
-    //         });
-    //         return newSet;
-    //     });
-    // };
+    const toggleGroup = (group: GroupedService) => {
+        const allSelected = group.services.every((service) =>
+            selectedServiceIds.has(service.id)
+        );
+        setSelectedServiceIds((prev) => {
+            const newSet = new Set(prev);
+            group.services.forEach((service) => {
+                if (allSelected) {
+                    newSet.delete(service.id);
+                } else {
+                    newSet.add(service.id);
+                }
+            });
+            return newSet;
+        });
+    };
 
     // Check group checkbox
-    // const isGroupChecked = (group: GroupedService) =>
-    //     group.services.some((service) => selectedServiceIds.has(service.id));
+    const isGroupChecked = (group: GroupedService) =>
+        group.services.some((service) => selectedServiceIds.has(service.id));
 
     // Submit
-    // const handleSubmit = (e: React.FormEvent) => {
-    //   e.preventDefault();
-
-    //   const newErrors: Errors = {};
-    //   if (!apiName.trim()) newErrors.apiName = 'API name is required';
-    //   if (!description.trim()) newErrors.description = 'Description is required';
-    //   setErrors(newErrors);
-
-    //   if (Object.keys(newErrors).length === 0) {
-    //     setShowModal(true);
-
-    //     const payload = {
-    //       name: apiName,
-    //       description,
-    //       services: Array.from(selectedServiceIds),
-    //     };
-
-    //     const method = isEditMode ? 'PATCH' : 'POST';
-    //     const url = isEditMode
-    //       ? `/api/apikeys/${keyFromParams}`
-    //       : '/api/apikeys';
-
-    //     console.log(payload)
-    //     fetch(url, {
-    //       method,
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify(payload),
-    //     }).then(() => {
-    //       setSuccess(true);
-    //       setTimeout(() => {
-    //         setShowModal(false);
-    //         router.push('/dashboard/profile?tab=3');
-    //       }, 2000);
-    //     });
-    //   }
-    // };
-
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+      e.preventDefault();
 
-        const newErrors: Errors = {};
-        if (!apiName.trim()) newErrors.apiName = "API name is required";
-        if (!description.trim())
-            newErrors.description = "Description is required";
-        setErrors(newErrors);
+      const newErrors: Errors = {};
+      if (!apiName.trim()) newErrors.apiName = 'API name is required';
+      if (!description.trim()) newErrors.description = 'Description is required';
+      setErrors(newErrors);
 
-        if (Object.keys(newErrors).length === 0) {
-            setShowModal(true);
-            setLoading(true); // 🔒 Disable button
+      if (Object.keys(newErrors).length === 0) {
+        setShowModal(true);
 
-            const payload = {
-                name: apiName,
-                description,
-                // services: Array.from(selectedServiceIds),
-            };
+        const payload = {
+          name: apiName,
+          description,
+          services: Array.from(selectedServiceIds),
+        };
 
-            console.log("Submitting payload:", payload); // optional
+        const method = isEditMode ? 'PATCH' : 'POST';
+        const url = isEditMode
+          ? `/api/apikeys/${keyFromParams}`
+          : '/api/apikeys';
 
-            const method = isEditMode ? "PATCH" : "POST";
-            const url = isEditMode
-                ? `/api/apikeys/${keyFromParams}`
-                : "/api/apikeys";
-
-            fetch(url, {
-                method,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            })
-                .then(() => {
-                    setSuccess(true);
-                    setTimeout(() => {
-                        setShowModal(false);
-                        router.push("/dashboard/profile?tab=3");
-                    }, 2000);
-                })
-                .finally(() => {
-                    setLoading(false); // ✅ Re-enable button
-                });
-        }
+        console.log(payload)
+        fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }).then(() => {
+          setSuccess(true);
+          setTimeout(() => {
+            setShowModal(false);
+            router.push('/dashboard/profile?tab=3');
+          }, 2000);
+        });
+      }
     };
+
+    // comments stops here
+
+    // const handleSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault();
+
+    //     const newErrors: Errors = {};
+    //     if (!apiName.trim()) newErrors.apiName = "API name is required";
+    //     if (!description.trim())
+    //         newErrors.description = "Description is required";
+    //     setErrors(newErrors);
+
+    //     if (Object.keys(newErrors).length === 0) {
+    //         setShowModal(true);
+    //         setLoading(true); // 🔒 Disable button
+
+    //         const payload = {
+    //             name: apiName,
+    //             description,
+    //             // services: Array.from(selectedServiceIds),
+    //         };
+
+    //         console.log("Submitting payload:", payload); // optional
+
+    //         const method = isEditMode ? "PATCH" : "POST";
+    //         const url = isEditMode
+    //             ? `/api/apikeys/${keyFromParams}`
+    //             : "/api/apikeys";
+
+    //         fetch(url, {
+    //             method,
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify(payload),
+    //         })
+    //             .then(() => {
+    //                 setSuccess(true);
+    //                 setTimeout(() => {
+    //                     setShowModal(false);
+    //                     router.push("/dashboard/profile?tab=3");
+    //                 }, 2000);
+    //             })
+    //             .finally(() => {
+    //                 setLoading(false); // ✅ Re-enable button
+    //             });
+    //     }
+    // };
 
     const handleBack = () => {
         const lastTab = localStorage.getItem("lastTab");
@@ -321,6 +330,8 @@ const CreateApiKeyPage: React.FC = () => {
                     src={dashboardKey.src}
                     alt="Key illustration"
                     className="w-64 h-64 object-contain"
+                    width={64}
+                    height={64}
                 />
             </aside>
 
