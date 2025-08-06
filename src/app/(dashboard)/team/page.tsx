@@ -1,41 +1,41 @@
 "use client";
 
-import { DataTable } from "@/components/shared/DataTable";
+// import { DataTable } from "@/components/shared/DataTable";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { IUser, userColumns } from "@/modules/dashboard/columns/user-columns";
+// import { IUser, userColumns } from "@/modules/dashboard/columns/user-columns";
 import { ActionModal } from "@/modules/dashboard/components/ActionModal";
-import DashboardCard from "@/modules/dashboard/components/DashboardCard";
-import EditUserModal from "@/modules/dashboard/components/EditUserModal";
+// import DashboardCard from "@/modules/dashboard/components/DashboardCard";
+// import EditUserModal from "@/modules/dashboard/components/EditUserModal";
 import InviteUserModal from "@/modules/dashboard/components/InviteUserModal";
-import useGetTeamController from "@/modules/dashboard/controllers/useGetTeamsController";
-import { Result } from "@/modules/dashboard/models/team";
+// import useGetTeamController from "@/modules/dashboard/controllers/useGetTeamsController";
+// import { Result } from "@/modules/dashboard/models/team";
 import { useState } from "react";
 export default function Teams() {
     const [showInvite, setShowInvite] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+    // const [showEditModal, setShowEditModal] = useState(false);
+    // const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
     const [showDelete, setShowDelete] = useState(false);
     const [showResend, setShowResend] = useState(false);
-    const { data } = useGetTeamController();
+    // const { data } = useGetTeamController();
 
-    const teamPopulation = data?.paginator.count;
+    // const teamPopulation = data?.paginator.count;
 
-    const handleEditUser = (member: IUser) => {
-        setSelectedUser(member);
-        setShowEditModal(true);
-    };
+    // const handleEditUser = (member: IUser) => {
+    //     setSelectedUser(member);
+    //     setShowEditModal(true);
+    // };
 
-    const teams: Result[] =
-        data?.results.map((team) => ({
-            no: team.id,
-            name: `${team.user.first_name} ${team.user.last_name}`,
-            email: team.user.email,
-            role: team.user.role || "No role yet",
-            phone_number: team.user.profile?.phone_number ?? "N/A",
-            status: team.status,
-            date: new Date(team.date).toLocaleDateString(),
-        })) ?? [];
+    // const teams: Result[] =
+    //     data?.results.map((team) => ({
+    //         no: team.id,
+    //         name: `${team.user.first_name} ${team.user.last_name}`,
+    //         email: team.user.email,
+    //         role: team.user.role || "No role yet",
+    //         phone_number: team.user.profile?.phone_number ?? "N/A",
+    //         status: team.status,
+    //         date: new Date(team.date).toLocaleDateString(),
+    //     })) ?? [];
 
     return (
         <div className="space-y-10">
@@ -49,22 +49,22 @@ export default function Teams() {
                 </Button>
             </Card>
 
-            <DashboardCard
+            {/* <DashboardCard
                 title="No of Users"
                 value={`${teamPopulation}`}
                 className="w-1/3"
-            />
+            /> */}
             <div className="flex items-center justify-between">
                 <h2 className="text-lg font-medium">History</h2>
             </div>
 
-            <DataTable columns={userColumns(handleEditUser)} data={teams} />
-
+            {/* <DataTable columns={userColumns(handleEditUser)} data={teams} /> */}
+{/* 
             <EditUserModal
                 open={showEditModal}
                 onClose={() => setShowEditModal(false)}
                 user={selectedUser}
-            />
+            /> */}
 
             {/* the modal */}
             <InviteUserModal

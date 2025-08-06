@@ -19,8 +19,6 @@ const handler = NextAuth({
 
                     const login = loginResponse?.data?.data;
 
-                    console.log(login)
-
                     const profileResponse = await Axios.get(
                         "/accounts/profile",
                         {
@@ -32,11 +30,7 @@ const handler = NextAuth({
 
                     const profile = profileResponse?.data?.data;
 
-                    console.log(profile);
-
                     if (login && profile) {
-                        const { e } = profile;
-
                         return {
                             id: "",
                             accessToken: login.access,

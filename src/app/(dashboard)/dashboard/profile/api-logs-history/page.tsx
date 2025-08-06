@@ -15,7 +15,7 @@ export interface IApiLog {
     by: string;
 }
 
-export const apiLogColumns: ColumnDef<IApiLog>[] = [
+const apiLogColumns: ColumnDef<IApiLog>[] = [
     {
         header: "Request ID",
         accessorKey: "requestId",
@@ -49,12 +49,12 @@ export const apiLogColumns: ColumnDef<IApiLog>[] = [
 export default function ApiKeyLogHistoryPage() {
     const apiLogData: IApiLog[] = [
         {
-            requestId: "REQ–00981",
+            requestId: "REQ-00981",
             apiKeyName: "PTADS_Project",
             endpoint: "/v1/verify-id",
             method: "Post",
             ipAddress: "197.210.56.21",
-            time: "2025–07–02 12:24 PM",
+            time: "2025-07-02 12:24 PM",
             by: "David",
         },
     ];

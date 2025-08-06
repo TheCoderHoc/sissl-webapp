@@ -26,6 +26,8 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { LiaUserCheckSolid } from "react-icons/lia";
 
 export const getSidebarNavLinks = (isCompanyVerified: boolean | undefined) => {
+    console.log(isCompanyVerified);
+
     return {
         company: [
             {

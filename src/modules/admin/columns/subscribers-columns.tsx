@@ -46,7 +46,7 @@ export const subscriberColumns: ColumnDef<ISubscriber>[] = [
     {
         header: "Actions",
         id: "actions",
-        cell: ({ row }) => {
+        cell: () => {
             return (
                 <div className="space-x-2">
                     <Link href={`${ADMIN_DASHBOARD_ROUTES.USER_BILLING}/1`}>

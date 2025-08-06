@@ -1,4 +1,5 @@
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
+import Image from "next/image";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
 interface IProps {
@@ -31,7 +32,7 @@ export default function EventTypeCard({
             )}
 
             <CardHeader className="flex items-center justify-center py-10">
-                <img src={photo} alt={title} className="w-24" />
+                <Image src={photo} alt={title} className="w-24" width={500} height={500} />
             </CardHeader>
 
             <CardFooter className="bg-gray-100 py-2 text-gray-500 justify-center">

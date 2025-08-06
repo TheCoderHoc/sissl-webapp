@@ -2,16 +2,15 @@
 
 import { useForm } from "react-hook-form";
 import { X } from "lucide-react";
-import { useState } from "react";
+// import { useState } from "react";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
 import UploadArea from "@/components/shared/UploadArea";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingModal } from "@/components/shared/LoadingModal";
 import { documentVerificationSchema } from "../lib/validators";
-import useDocumentVerificationController from "../controllers/documentVerificationController";
+// import useDocumentVerificationController from "../controllers/documentVerificationController";
 import { toast } from "sonner";
 
 type Props = {

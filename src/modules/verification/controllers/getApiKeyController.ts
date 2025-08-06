@@ -1,8 +1,8 @@
 import AxiosWithToken from "@/constants/api_management/MyHttpHelperWithToken";
+import { GetApiResponse } from "@/modules/auth/models/apiResponse";
+import { APIKeyType } from "@/modules/dashboard/components/WebHookTab";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { GetApiResponse } from "../../../auth/models/apiResponse";
-import { APIKeyType } from "@/modules/company/dashboard/components/WebHookTab";
 
 const useGetApiKeysController = ({
     enabled = true,

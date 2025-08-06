@@ -2,12 +2,12 @@
 import SelectableCard from "@/components/shared/SelectableCard";
 import { Button } from "@/components/ui/button";
 import { DASHBOARD_ROUTES } from "@/constants/routes";
-import BillingPlanIcon from "@/public/icons/BillingPlan";
-import PlanPayAsYouGoIcon from "@/public/icons/PlanPayAsYouGo";
-import PlanSubscriptionIcon from "@/public/icons/PlanSubscription";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import PlanSubscriptionIcon from "../../../../../public/icons/PlanSubscription";
+import PlanPayAsYouGoIcon from "../../../../../public/icons/PlanPayAsYouGo";
+import BillingPlanIcon from "../../../../../public/icons/BillingPlan";
 
 const plans = [
     {

@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/shared/DataTable";
-import { activityColumns } from "../columns/activities";
+import { activityColumns } from "@/modules/dashboard/columns/activities";
 
 export default function ActivityList() {
     return (

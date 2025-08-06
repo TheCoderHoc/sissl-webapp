@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import BankIcon from "@/public/icons/Bank";
-import CreditCardIcon from "@/public/icons/CreditCard";
 import { useState } from "react";
 import FormInput from "@/components/shared/FormInput";
 import { Form } from "@/components/ui/form";
@@ -9,6 +7,8 @@ import { DASHBOARD_ROUTES } from "@/constants/routes";
 import Link from "next/link";
 import { useInitiatePaymentController } from "../controllers/billing-plans/initiatePaymentController";
 import { useParams } from "next/navigation";
+import CreditCardIcon from "../../../../public/icons/CreditCard";
+import BankIcon from "../../../../public/icons/Bank";
 
 interface IPaymentProps {
     paymentType: "topup" | "subscription";

@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { useRouter } from "next/navigation";
 
 import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
@@ -12,15 +11,15 @@ import Switch from "@/modules/event-management/components/Switch";
 import AccountSetup from "@/modules/event-management/components/old/AccountSetup";
 const CelebrationEvent = () => {
   const form = useForm();
-  const [documentUrl, setDocumentUrl] = useState("");
-  const [showAccountModal, setShowAccountModal] = useState(false);
+  // const [documentUrl, setDocumentUrl] = useState("");
+  // const [showAccountModal, setShowAccountModal] = useState(false);
   const [enableGifts, setEnableGifts] = useState(true);
   const [enableCash, setEnableCash] = useState(true);
-  const [accountDetails, setAccountDetails] = useState<{
-    account_name: string;
-    account_number: string;
-    bank: string;
-  } | null>(null);
+  // const [accountDetails, setAccountDetails] = useState<{
+  //     account_name: string;
+  //     account_number: string;
+  //     bank: string;
+  // } | null>(null);
 
   return (
     <>
@@ -94,7 +93,7 @@ const CelebrationEvent = () => {
               </label>
               <UploadArea
                 shouldUploadFile
-                onSetUploadUrl={(url) => setDocumentUrl(url)}
+                // onSetUploadUrl={(url) => setDocumentUrl(url)}
               />
             </div>
             {/* Toggle Section 1 - Gifts */}
@@ -180,15 +179,15 @@ const CelebrationEvent = () => {
           </form>
         </div>
       </FormProvider>
-      {showAccountModal && (
-        <AccountSetup
-          onClose={() => setShowAccountModal(false)}
-          onSave={(data) => {
-            setAccountDetails(data);
-            setShowAccountModal(false);
-          }}
-        />
-      )}
+      {/* {showAccountModal && (
+                <AccountSetup
+                    onClose={() => setShowAccountModal(false)}
+                    onSave={(data) => {
+                        // setAccountDetails(data);
+                        setShowAccountModal(false);
+                    }}
+                />
+            )} */}
     </>
   );
 };

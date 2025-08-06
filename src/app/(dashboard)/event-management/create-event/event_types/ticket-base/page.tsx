@@ -3,7 +3,6 @@ import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
 import UploadArea from "@/components/shared/UploadArea";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import TicketSetup from "@/modules/event-management/components/TicketSetup";
@@ -21,7 +20,7 @@ const TicketBaseEvent = () => {
     bank: string;
   } | null>(null);
 
-  const [documentUrl, setDocumentUrl] = useState("");
+  // const [documentUrl, setDocumentUrl] = useState("");
 
   return (
     <>
@@ -92,7 +91,7 @@ const TicketBaseEvent = () => {
               </label>
               <UploadArea
                 shouldUploadFile
-                onSetUploadUrl={(url) => setDocumentUrl(url)}
+                // onSetUploadUrl={(url) => setDocumentUrl(url)}
               />
             </div>
 

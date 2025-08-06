@@ -1,26 +1,26 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
-import { dashboardKey } from "@/public/images";
-import CustomLoader from "@/components/ui/customLoader";
-import { Success } from "@/public/icons";
-import useGetServices from "@/modules/company/dashboard/controllers/useGetServicesController";
+// import useGetServices from "@/modules/dashboard/controllers/useGetServicesController";
+import { dashboardKey } from "../../../../../../public/images";
+import { Success } from "../../../../../../public/icons";
+import Image from "next/image";
 
 interface Errors {
     apiName?: string;
     description?: string;
 }
 
-interface GroupedService {
-    id: string;
-    name: string;
-    services: {
-        id: string;
-        name: string;
-    }[];
-}
+// interface GroupedService {
+//     id: string;
+//     name: string;
+//     services: {
+//         id: string;
+//         name: string;
+//     }[];
+// }
 
 const CreateApiKeyPage: React.FC = () => {
     const router = useRouter();
@@ -35,64 +35,64 @@ const CreateApiKeyPage: React.FC = () => {
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const [groupedServices, setGroupedServices] = useState<GroupedService[]>(
-        []
-    );
-    const [selectedServiceIds, setSelectedServiceIds] = useState<Set<string>>(
-        new Set()
-    );
+    // const [groupedServices, setGroupedServices] = useState<GroupedService[]>(
+    //     []
+    // );
+    // const [selectedServiceIds, setSelectedServiceIds] = useState<Set<string>>(
+    //     new Set()
+    // );
 
-    const { data: serviceData, isLoading } = useGetServices();
+    // const { data: serviceData, isLoading } = useGetServices();
 
     // Fetch and transform service data
-    useEffect(() => {
-        if (serviceData?.data?.results) {
-            const transformed = serviceData.data.results.map((group) => ({
-                id: group.id,
-                name: group.name,
-                services: (group.services || []).map((s) => ({
-                    id: s.id,
-                    name: s.name,
-                })),
-            }));
-            setGroupedServices(transformed);
-        }
-    }, [serviceData]);
+    // useEffect(() => {
+    //     if (serviceData?.data?.results) {
+    //         const transformed = serviceData.data.results.map((group) => ({
+    //             id: group.id,
+    //             name: group.name,
+    //             services: (group.services || []).map((s) => ({
+    //                 id: s.id,
+    //                 name: s.name,
+    //             })),
+    //         }));
+    //         setGroupedServices(transformed);
+    //     }
+    // }, [serviceData]);
 
     // Toggle individual service
-    const toggleService = (serviceId: string) => {
-        setSelectedServiceIds((prev) => {
-            const newSet = new Set(prev);
-            if (newSet.has(serviceId)) {
-                newSet.delete(serviceId);
-            } else {
-                newSet.add(serviceId);
-            }
-            return newSet;
-        });
-    };
+    // const toggleService = (serviceId: string) => {
+    //     setSelectedServiceIds((prev) => {
+    //         const newSet = new Set(prev);
+    //         if (newSet.has(serviceId)) {
+    //             newSet.delete(serviceId);
+    //         } else {
+    //             newSet.add(serviceId);
+    //         }
+    //         return newSet;
+    //     });
+    // };
 
     // Toggle all services in a group
-    const toggleGroup = (group: GroupedService) => {
-        const allSelected = group.services.every((service) =>
-            selectedServiceIds.has(service.id)
-        );
-        setSelectedServiceIds((prev) => {
-            const newSet = new Set(prev);
-            group.services.forEach((service) => {
-                if (allSelected) {
-                    newSet.delete(service.id);
-                } else {
-                    newSet.add(service.id);
-                }
-            });
-            return newSet;
-        });
-    };
+    // const toggleGroup = (group: GroupedService) => {
+    //     const allSelected = group.services.every((service) =>
+    //         selectedServiceIds.has(service.id)
+    //     );
+    //     setSelectedServiceIds((prev) => {
+    //         const newSet = new Set(prev);
+    //         group.services.forEach((service) => {
+    //             if (allSelected) {
+    //                 newSet.delete(service.id);
+    //             } else {
+    //                 newSet.add(service.id);
+    //             }
+    //         });
+    //         return newSet;
+    //     });
+    // };
 
     // Check group checkbox
-    const isGroupChecked = (group: GroupedService) =>
-        group.services.some((service) => selectedServiceIds.has(service.id));
+    // const isGroupChecked = (group: GroupedService) =>
+    //     group.services.some((service) => selectedServiceIds.has(service.id));
 
     // Submit
     // const handleSubmit = (e: React.FormEvent) => {
@@ -148,7 +148,7 @@ const CreateApiKeyPage: React.FC = () => {
             const payload = {
                 name: apiName,
                 description,
-                services: Array.from(selectedServiceIds),
+                // services: Array.from(selectedServiceIds),
             };
 
             console.log("Submitting payload:", payload); // optional
@@ -189,9 +189,9 @@ const CreateApiKeyPage: React.FC = () => {
                         {isEditMode ? "Edit API Key" : "Create API Key"}
                     </h1>
 
-                    {loading || isLoading ? (
+                    {loading ? (
                         <div className="flex justify-center pt-10">
-                            <CustomLoader />
+                            {/* <CustomLoader /> */}
                         </div>
                     ) : (
                         <form
@@ -241,7 +241,7 @@ const CreateApiKeyPage: React.FC = () => {
 
                                 {/* Dynamic Service Checkboxes */}
                                 <div className="space-y-6">
-                                    {groupedServices.map((group) => (
+                                    {/* {groupedServices.map((group) => (
                                         <div key={group.id}>
                                             <label className="flex items-center font-medium mb-2 cursor-pointer select-none">
                                                 <input
@@ -281,7 +281,7 @@ const CreateApiKeyPage: React.FC = () => {
                                                 )}
                                             </div>
                                         </div>
-                                    ))}
+                                    ))} */}
                                 </div>
                             </div>
 
@@ -313,7 +313,7 @@ const CreateApiKeyPage: React.FC = () => {
             </section>
 
             <aside className="hidden sm:flex lg:w-1/3 p-4 md:p-6 items-center justify-center">
-                <img
+                <Image
                     src={dashboardKey.src}
                     alt="Key illustration"
                     className="w-64 h-64 object-contain"
@@ -329,7 +329,12 @@ const CreateApiKeyPage: React.FC = () => {
                     >
                         {success ? (
                             <>
-                                <img src={Success.src} alt="success" />
+                                <Image
+                                    src={Success.src}
+                                    alt="success"
+                                    width={1000}
+                                    height={1000}
+                                />
                                 <p className="text-white text-center text-lg mt-3">
                                     API successfully{" "}
                                     {isEditMode ? "updated" : "created"}
@@ -337,7 +342,7 @@ const CreateApiKeyPage: React.FC = () => {
                             </>
                         ) : (
                             <>
-                                <CustomLoader />
+                                {/* <CustomLoader /> */}
                                 <p className="mt-3 text-white text-lg">
                                     {isEditMode ? "Updating" : "Creating"} API
                                     key...
