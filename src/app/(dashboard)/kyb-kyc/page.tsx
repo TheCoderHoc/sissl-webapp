@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { KYB_KYC_ROUTES } from "@/constants/routes";
 import { IVerificationHistory, verificationHistoryColumns } from "@/modules/kyb-kyc/columns/verification-history";
+import Image from "next/image";
 import Link from "next/link";
 
 const verificationHistory: IVerificationHistory[] = [
@@ -61,9 +62,11 @@ export default function KybKyc() {
                     </div>
                 </div>
                 <div>
-                    <img
+                    <Image
                         src="/images/dashboard-intro-image.svg"
                         alt="Dashboard Intro Image"
+                        width={1000}
+                        height={1000}
                     />
                 </div>
             </div>

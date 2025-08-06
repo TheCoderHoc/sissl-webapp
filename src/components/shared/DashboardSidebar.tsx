@@ -10,12 +10,6 @@ import { useSession } from "next-auth/react";
 import { DASHBOARD_ROUTES } from "@/constants/routes";
 import { Logo } from "../../../public/icons";
 
-interface User {
-    is_company?: boolean;
-    company_name?: string;
-    is_onboarding_completed?: boolean;
-}
-
 interface SubHref {
     label: string;
     href: string;
@@ -30,13 +24,6 @@ interface NavigationLinkData {
     disabled?: boolean;
     subHrefs?: SubHref[];
 }
-
-type UserType =
-    | "company"
-    | "individual"
-    | "subAdmin"
-    | "accountant"
-    | "superAdmin";
 
 const isSubHrefActive = (
     searchParams: URLSearchParams,
@@ -138,11 +125,11 @@ const NavigationLink: React.FC<NavigationLinkProps> = ({
 }) => {
     const isDisabled = disabled || !!subHrefs;
 
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        if (isDisabled) {
-            e.preventDefault();
-        }
-    };
+    // const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    //     if (isDisabled) {
+    //         e.preventDefault();
+    //     }
+    // };
 
     const LinkContent = (
         <span

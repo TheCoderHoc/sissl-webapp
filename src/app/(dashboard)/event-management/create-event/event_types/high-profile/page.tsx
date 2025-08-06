@@ -3,13 +3,11 @@ import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
 import UploadArea from "@/components/shared/UploadArea";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
 const HighProfileEvent = () => {
   const form = useForm();
-  const [documentUrl, setDocumentUrl] = useState("");
+  // const [documentUrl, setDocumentUrl] = useState("");
 
   return (
     <FormProvider {...form}>
@@ -84,7 +82,7 @@ const HighProfileEvent = () => {
             </label>
             <UploadArea
               shouldUploadFile
-              onSetUploadUrl={(url) => setDocumentUrl(url)}
+              // onSetUploadUrl={(url) => setDocumentUrl(url)}
             />
           </div>
 
@@ -107,17 +105,17 @@ const HighProfileEvent = () => {
                 <input
                   type="checkbox"
                   value={value}
-                  onChange={(e) => {
-                    const current = form.getValues("verification_method") || [];
-                    const updated = e.target.checked
-                      ? [...current, value]
-                      : current.filter((item) => item !== value);
+                  // onChange={(e) => {
+                  //   // const current = form.getValues("verification_method") || [];
+                  //   // const updated = e.target.checked
+                  //   //   ? [...current, value]
+                  //   //   : current.filter((item) => item !== value);
 
-                    form.setValue(
-                      "verification_method",
-                      updated as [string, ...string[]]
-                    );
-                  }}
+                  //   // form.setValue(
+                  //   //   "verification_method",
+                  //   //   updated as [string, ...string[]]
+                  //   // );
+                  // }}
                 />
                 <span className="text-left">{label}</span>
               </label>

@@ -8,13 +8,13 @@ import UploadArea from "@/components/shared/UploadArea";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { DASHBOARD_ROUTES } from "@/constants/routes";
-import { UploadDocumentSchema } from "@/modules/company/dashboard/lib/validators";
-import { TUploadDocumentFormValues } from "@/modules/dashboard/types/company-compliance";
-import { useCompanyComplianceController } from "@/modules/company/dashboard/controllers/companyComplianceController";
-import { ComplianceVerificationRequest } from "@/modules/company/dashboard/models/companyComplianceVerification";
 import useFileUploadController from "@/constants/controllers/fileUploadController";
 import { toast } from "react-toastify";
-import { CompanyComplianceContext } from "@/modules/company/dashboard/context/company-compliance";
+import { CompanyComplianceContext } from "@/modules/dashboard/context/company-compliance";
+import { TUploadDocumentFormValues } from "@/modules/dashboard/types/company-compliance";
+import { UploadDocumentSchema } from "@/modules/dashboard/lib/validators";
+import { useCompanyComplianceController } from "@/modules/dashboard/controllers/companyComplianceController";
+import { ComplianceVerificationRequest } from "@/modules/dashboard/models/companyComplianceVerification";
 
 export default function UploadDocumentPage() {
     const context = useContext(CompanyComplianceContext);

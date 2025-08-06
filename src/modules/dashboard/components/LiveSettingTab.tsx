@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import DashboardItem from "./DashboardItem";
 import ThresholdModal from "./ThresholdModal";
 import LivenessActionsModal from "./LivenessActionModal";
@@ -8,7 +8,7 @@ import DurationModal from "./LivenessDurationModal";
 import { useLivenessSettings } from "../controllers/usePatchLivenessSettingController";
 import { LivenessSettingRequest } from "../models/livenessSettings";
 import useGetLivenessAction from "../controllers/useGetLivenessActionController";
-import useGetLivenessSetting from "../controllers/useGetLivenessSettingController";
+// import useGetLivenessSetting from "../controllers/useGetLivenessSettingController";
 
 const mapThresholdToNumber = (level: "low" | "medium" | "high"): number => {
     switch (level) {
@@ -23,28 +23,28 @@ const mapThresholdToNumber = (level: "low" | "medium" | "high"): number => {
     }
 };
 
-const mapNumberToThreshold = (num: number): "low" | "medium" | "high" => {
-    switch (num) {
-        case 1:
-            return "low";
-        case 2:
-            return "medium";
-        case 3:
-            return "high";
-        default:
-            return "low";
-    }
-};
+// const mapNumberToThreshold = (num: number): "low" | "medium" | "high" => {
+//     switch (num) {
+//         case 1:
+//             return "low";
+//         case 2:
+//             return "medium";
+//         case 3:
+//             return "high";
+//         default:
+//             return "low";
+//     }
+// };
 
 export default function LiveSettingTab() {
     const { livenessSettings } = useLivenessSettings();
     const {
         data: actionData,
-        isLoading: loadingActions,
+        // isLoading: loadingActions,
         isError,
     } = useGetLivenessAction();
-    const { data: settingData, isLoading: loadingSettings } =
-        useGetLivenessSetting();
+    // const { data: settingData, isLoading: loadingSettings } =
+    //     useGetLivenessSetting();
 
     const [threshold, setThreshold] = useState<"low" | "medium" | "high">(
         "low"
@@ -56,7 +56,7 @@ export default function LiveSettingTab() {
     const [showThresholdModal, setShowThresholdModal] = useState(false);
     const [showActionsModal, setShowActionsModal] = useState(false);
     const [showDurationModal, setShowDurationModal] = useState(false);
-    const [initialized, setInitialized] = useState(false);
+    // const [initialized, setInitialized] = useState(false);
 
     const actionList = Array.isArray(actionData)
         ? actionData.filter(
@@ -66,34 +66,34 @@ export default function LiveSettingTab() {
         : [];
 
     const idToName = new Map(actionList.map((a) => [a.id, a.name]));
-    const nameToId = new Map(actionList.map((a) => [a.name, a.id]));
+    // const nameToId = new Map(actionList.map((a) => [a.name, a.id]));
 
-    useEffect(() => {
-        if (!initialized && settingData?.data && actionList.length > 0) {
-            const payload = settingData.data;
+    // useEffect(() => {
+    //     if (!initialized && settingData?.data && actionList.length > 0) {
+    //         const payload = settingData.data;
 
-            setThreshold(mapNumberToThreshold(payload.thresh_hold));
-            setRandomize(payload.randomize_action ?? false);
+    //         setThreshold(mapNumberToThreshold(payload.thresh_hold));
+    //         setRandomize(payload.randomize_action ?? false);
 
-            const actionIds =
-                payload.action
-                    ?.split(",")
-                    .map((name) => name.trim())
-                    .map((name) => nameToId.get(name) || name) ?? [];
+    //         const actionIds =
+    //             payload.action
+    //                 ?.split(",")
+    //                 .map((name) => name.trim())
+    //                 .map((name) => nameToId.get(name) || name) ?? [];
 
-            setActions(actionIds);
+    //         setActions(actionIds);
 
-            const newDurations: Record<string, number> = {};
-            payload.action_durations?.forEach(
-                ({ action_type_id, duration_secs }) => {
-                    newDurations[action_type_id] = duration_secs;
-                }
-            );
-            setDurations(newDurations);
+    //         const newDurations: Record<string, number> = {};
+    //         payload.action_durations?.forEach(
+    //             ({ action_type_id, duration_secs }) => {
+    //                 newDurations[action_type_id] = duration_secs;
+    //             }
+    //         );
+    //         setDurations(newDurations);
 
-            setInitialized(true);
-        }
-    }, [settingData?.data, actionList, initialized]);
+    //         setInitialized(true);
+    //     }
+    // }, [settingData?.data, actionList, initialized]);
 
     const buildPayload = (
         partial: Partial<LivenessSettingRequest>
@@ -110,13 +110,13 @@ export default function LiveSettingTab() {
         ...partial,
     });
 
-    if (loadingActions || loadingSettings) {
-        return (
-            <div className="flex items-center justify-center h-40">
-                <p className="text-white">Loading liveness settings...</p>
-            </div>
-        );
-    }
+    // if (loadingActions || loadingSettings) {
+    //     return (
+    //         <div className="flex items-center justify-center h-40">
+    //             <p className="text-white">Loading liveness settings...</p>
+    //         </div>
+    //     );
+    // }
 
     if (isError) {
         return (

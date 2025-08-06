@@ -10,6 +10,7 @@ import useStaffVerificationController from "@/modules/staff-verification/control
 import { toast } from "sonner";
 import { StaffVerificationPayload } from "@/modules/staff-verification/models/types";
 import { companyDashBlack } from "../../../../../public/images";
+import Image from "next/image";
 
 export default function VerifyStaffForm() {
     const form = useForm({
@@ -199,10 +200,12 @@ export default function VerifyStaffForm() {
                     </form>
                 </Form>
                 <div className="flex justify-center w-[57%] h-full pt-12">
-                    <img
+                    <Image
                         src={companyDashBlack.src}
                         alt="illustration"
                         className="w-[55%]"
+                        width={1000}
+                        height={1000}
                     />
                 </div>
             </div>

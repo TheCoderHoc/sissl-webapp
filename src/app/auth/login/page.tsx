@@ -66,8 +66,8 @@ export default function LoginPage() {
         }
 
         if (res?.ok) {
-            const sessionRes = await fetch("/api/auth/session");
-            const session = await sessionRes.json();
+            // const sessionRes = await fetch("/api/auth/session");
+            // const session = await sessionRes.json();
 
             router.push(DASHBOARD_ROUTES.HOME);
         }

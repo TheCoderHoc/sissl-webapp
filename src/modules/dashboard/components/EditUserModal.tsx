@@ -10,9 +10,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { IUser } from "@/modules/company/dashboard/columns/user-columns";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { ChevronDownIcon } from "lucide-react";
+import { IUser } from "../columns/user-columns";
 
 interface EditUserModalProps {
     open: boolean;

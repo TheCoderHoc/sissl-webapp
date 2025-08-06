@@ -1,12 +1,12 @@
 "use client";
 import { DataTable } from "@/components/shared/DataTable";
 import GreetUser from "@/components/shared/GreetUser";
-import TableHeader from "@/components/shared/TableHeader";
+// import TableHeader from "@/components/shared/TableHeader";
 import {
     ISubscriber,
     subscriberColumns,
 } from "@/modules/admin/columns/subscribers-columns";
-import { userColumns } from "@/modules/admin/columns/user-column";
+// import { userColumns } from "@/modules/admin/columns/user-column";
 import AnalyticCardAlt from "@/modules/admin/components/AnalyticCardAlt";
 
 const subscribers: ISubscriber[] = [

@@ -2,15 +2,14 @@
 
 import { useForm } from "react-hook-form";
 import { X } from "lucide-react";
-import { useState } from "react";
+// import { useState } from "react";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
 import UploadArea from "@/components/shared/UploadArea";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { documentVerificationSchema } from "../lib/validators";
-import useDocumentVerificationController from "../controllers/documentVerificationController";
+// import useDocumentVerificationController from "../controllers/documentVerificationController";
 import { toast } from "sonner";
 
 type Props = {
@@ -18,8 +17,6 @@ type Props = {
 };
 
 export default function DocumentUploadModal({ setShowModal }: Props) {
-    const router = useRouter();
-
     const form = useForm({
         resolver: zodResolver(documentVerificationSchema),
         defaultValues: {
@@ -29,8 +26,8 @@ export default function DocumentUploadModal({ setShowModal }: Props) {
             document_file: "",
         },
     });
-    const [documentUrl, setDocumentUrl] = useState("");
-    const { verifyDocument, isLoading } = useDocumentVerificationController();
+    // const [documentUrl, setDocumentUrl] = useState("");
+    // const { verifyDocument, isLoading } = useDocumentVerificationController();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,16 +38,16 @@ export default function DocumentUploadModal({ setShowModal }: Props) {
             return;
         }
 
-        const values = form.getValues();
+        // const values = form.getValues();
 
-        const payload = {
-            ...values,
-            document_file: documentUrl,
-        };
+        // const payload = {
+        //     ...values,
+        //     document_file: documentUrl,
+        // };
 
         try {
-            const response = await verifyDocument(payload);
-            router.push(`/document-verification/${response.id}`);
+            // const response = await verifyDocument(payload);
+            // router.push(`/document-verification/${response.id}`);
             setShowModal(false);
         } catch (error) {
             console.error("Document verification failed:", error);
@@ -117,7 +114,7 @@ export default function DocumentUploadModal({ setShowModal }: Props) {
                             <UploadArea
                                 label="Upload document"
                                 shouldUploadFile
-                                onSetUploadUrl={(url) => setDocumentUrl(url)}
+                                // onSetUploadUrl={(url) => setDocumentUrl(url)}
                             />
 
                             <div className="flex justify-end gap-4 pt-4">

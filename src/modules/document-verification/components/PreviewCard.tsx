@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type DocumentPreviewCardProps = {
   src?: string;
@@ -30,10 +31,12 @@ export default function PreviewCard({
         )}
       >
         {src ? (
-          <img
+          <Image
             src={src}
             alt="Document preview"
             className="object-contain max-h-full max-w-full"
+            width={1000}
+            height={1000}
           />
         ) : (
           fallbackText

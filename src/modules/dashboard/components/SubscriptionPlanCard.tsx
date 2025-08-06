@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DASHBOARD_ROUTES } from "@/constants/routes";
 import Link from "next/link";
-import { IBillingPlanResponseData } from "../../../dashboard/types/billing";
+import { IBillingPlanResponseData } from "../types/billing";
 
 export default function SubscriptionPlanCard({
     id,

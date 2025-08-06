@@ -9,37 +9,37 @@ import {
     usageHistoryColumns,
 } from "@/modules/admin/columns/usage-history-columns";
 
-export const usageHistoryData: IUsageHistory[] = [
-    {
-        date: "2025-07-25",
-        service_type: "Data",
-        subtype: "Internet Bundle",
-        quantity: "5",
-        unit_price: "200.00",
-        total: "1000.00",
-        status: "completed",
-    },
-    {
-        date: "2025-07-28",
-        service_type: "Airtime",
-        subtype: "MTN Recharge",
-        quantity: "1",
-        unit_price: "500.00",
-        total: "500.00",
-        status: "pending",
-    },
-    {
-        date: "2025-08-01",
-        service_type: "Utility",
-        subtype: "Electricity Payment",
-        quantity: "1",
-        unit_price: "7500.00",
-        total: "7500.00",
-        status: "failed",
-    },
-];
-
 export default function AdminUserListDetailPage() {
+    const usageHistoryData: IUsageHistory[] = [
+        {
+            date: "2025-07-25",
+            service_type: "Data",
+            subtype: "Internet Bundle",
+            quantity: "5",
+            unit_price: "200.00",
+            total: "1000.00",
+            status: "completed",
+        },
+        {
+            date: "2025-07-28",
+            service_type: "Airtime",
+            subtype: "MTN Recharge",
+            quantity: "1",
+            unit_price: "500.00",
+            total: "500.00",
+            status: "pending",
+        },
+        {
+            date: "2025-08-01",
+            service_type: "Utility",
+            subtype: "Electricity Payment",
+            quantity: "1",
+            unit_price: "7500.00",
+            total: "7500.00",
+            status: "failed",
+        },
+    ];
+
     return (
         <section className="space-y-10">
             <div className="grid grid-cols-[1fr_2fr] gap-10">

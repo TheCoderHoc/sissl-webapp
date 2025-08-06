@@ -1,41 +1,49 @@
-'use client';
+"use client";
 
 import { useModalStore } from "@/stores/useWebhookModalStore";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 
 export default function ChangeWebhookModal() {
-  const { modalType, modalData, closeModal } = useModalStore();
+    const { modalType, closeModal } = useModalStore();
 
-  if (modalType !== "changeWebhook") return null;
+    if (modalType !== "changeWebhook") return null;
 
-  const handleConfirm = () => {
-    // TODO: Show a form, or redirect to update page
-    console.log("Changing webhook key for:", modalData);
-    closeModal();
-  };
+    const handleConfirm = () => {
+        // TODO: Show a form, or redirect to update page
+        // console.log("Changing webhook key for:", modalData);
+        closeModal();
+    };
 
-  return (
-    <Dialog.Root open onOpenChange={closeModal}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/70 z-50" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-          bg-[#0a0a0a] text-white border border-gray-700 rounded-lg z-50 w-[400px] p-6 space-y-5">
-          <h2 className="text-lg font-semibold">Change Webhook Key</h2>
-          <p className="text-sm text-gray-400">
-            Are you sure you want to change this webhook&apos;s settings or key? This might affect your integrations.
-          </p>
+    return (
+        <Dialog.Root open onOpenChange={closeModal}>
+            <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-black/70 z-50" />
+                <Dialog.Content
+                    className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+          bg-[#0a0a0a] text-white border border-gray-700 rounded-lg z-50 w-[400px] p-6 space-y-5"
+                >
+                    <h2 className="text-lg font-semibold">
+                        Change Webhook Key
+                    </h2>
+                    <p className="text-sm text-gray-400">
+                        Are you sure you want to change this webhook&apos;s
+                        settings or key? This might affect your integrations.
+                    </p>
 
-          <div className="flex justify-end gap-3">
-            <Button variant="ghost" onClick={closeModal}>
-              Cancel
-            </Button>
-            <Button className="bg-yellow-300 text-black hover:bg-yellow-400" onClick={handleConfirm}>
-              Change
-            </Button>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
+                    <div className="flex justify-end gap-3">
+                        <Button variant="ghost" onClick={closeModal}>
+                            Cancel
+                        </Button>
+                        <Button
+                            className="bg-yellow-300 text-black hover:bg-yellow-400"
+                            onClick={handleConfirm}
+                        >
+                            Change
+                        </Button>
+                    </div>
+                </Dialog.Content>
+            </Dialog.Portal>
+        </Dialog.Root>
+    );
 }

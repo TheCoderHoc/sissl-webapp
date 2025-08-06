@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import AxiosWithToken from "@/constants/api_management/MyHttpHelperWithToken";
-import { IBillingPlanResponseData } from "../../../../dashboard/types/billing";
 import { IPaginatedResponse } from "@/types";
+import { IBillingPlanResponseData } from "../../types/billing";
 
 const useGetBillingPlans = ({ enabled = true }) => {
     return useQuery<IPaginatedResponse<IBillingPlanResponseData>, AxiosError>({

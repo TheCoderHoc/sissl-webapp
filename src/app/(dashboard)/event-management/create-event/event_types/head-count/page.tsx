@@ -3,13 +3,11 @@ import FormInput from "@/components/shared/FormInput";
 import FormSelect from "@/components/shared/FormSelect";
 import UploadArea from "@/components/shared/UploadArea";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
 const HeadCountEvent = () => {
   const form = useForm();
-  const [documentUrl, setDocumentUrl] = useState("");
+  // const [documentUrl, setDocumentUrl] = useState("");
 
   return (
     <FormProvider {...form}>
@@ -78,7 +76,7 @@ const HeadCountEvent = () => {
             </label>
             <UploadArea
               shouldUploadFile
-              onSetUploadUrl={(url) => setDocumentUrl(url)}
+              // onSetUploadUrl={(url) => setDocumentUrl(url)}
             />
           </div>
           {/* Action Buttons */}

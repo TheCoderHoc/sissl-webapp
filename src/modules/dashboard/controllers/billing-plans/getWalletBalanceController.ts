@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import AxiosWithToken from "@/constants/api_management/MyHttpHelperWithToken";
-import { IWalletBalanceResponseData } from "../../../../dashboard/types/billing";
+import { IWalletBalanceResponseData } from "../../types/billing";
 
 const useGetWalletBalanceController = ({
     enabled = true,

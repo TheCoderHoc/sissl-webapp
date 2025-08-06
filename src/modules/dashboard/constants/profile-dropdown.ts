@@ -1,10 +1,10 @@
 import { DASHBOARD_ROUTES } from "@/constants/routes";
-import AccountProfileIcon from "@/public/icons/AccountProfile";
-import AccountSettingIcon from "@/public/icons/AccountSetting";
-import AuditLogIcon from "@/public/icons/AuditLog";
-import BillingUsageIcon from "@/public/icons/BillingUsage";
-import LogOutIcon from "@/public/icons/LogOut";
-import TeamIcon from "@/public/icons/Team";
+import AccountProfileIcon from "../../../../public/icons/AccountProfile";
+import BillingUsageIcon from "../../../../public/icons/BillingUsage";
+import TeamIcon from "../../../../public/icons/Team";
+import AuditLogIcon from "../../../../public/icons/AuditLog";
+import AccountSettingIcon from "../../../../public/icons/AccountSetting";
+import LogOutIcon from "../../../../public/icons/LogOut";
 
 export const profileDropdownLinks = [
     {
