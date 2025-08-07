@@ -1,5 +1,5 @@
 import React from "react";
-import EventCard from "./EventsCard"; // Adjust the import path if needed
+import EventCard from "./EventsCard";
 
 const events = [
   { title: "Tech Submit 2025", link: "#" },
@@ -20,45 +20,42 @@ export default function Events() {
   const pairedEvents = chunkEvents(events, 2);
 
   return (
-    <div className="bg-white text-black dark:bg-black dark:text-white px-8 md:px-16 py-40">
+    <section className="bg-black text-white px-6 md:px-16 py-24">
       {/* Header */}
-      <div className="text-center mb-[78px]">
+      <div className="text-center mb-20">
         <h1 className="text-3xl md:text-4xl font-semibold leading-snug">
-          Discover Upcoming <br />& Past Public{" "}
-          <span className="text-si_yellow">Events</span>
+          Discover Upcoming <br />
+          & Past Public <span className="text-[#FFE500]">Events</span>
         </h1>
-        <p className="text-base text-gray-700 dark:text-gray-400 mt-3 max-w-xl mx-auto">
-          Stay informed about events hosted through SISSI—
-          <br className="hidden lg:inline-block" />
-          explore what’s coming up or revisit past highlights
+        <p className="text-sm md:text-base text-gray-400 mt-4 max-w-xl mx-auto leading-relaxed">
+          Stay informed about events hosted through SISSL—<br className="hidden md:inline-block" />
+          explore what’s coming up or revisit past highlights.
         </p>
       </div>
 
-      {/* Main Content */}
-      <div className="flex flex-col md:flex-row justify-between max-w-7xl mx-auto overflow-hidden">
+      {/* Main Layout */}
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
         {/* Left: Create Event */}
-        <div className="p-[69px]">
-          <h2 className="text-black dark:text-white text-2xl font-medium mb-6">
+        <div className="lg:w-1/3 flex flex-col justify-between px-6 py-10 bg-transparent">
+          <h2 className="text-white text-2xl font-medium leading-snug mb-10">
             Create Upcoming <br /> Event
           </h2>
-          <button className="bg-primary text-black px-6 py-2 mt-20 rounded-sm font-medium">
+          <button className="bg-[#FFE500] text-black px-6 py-3 rounded-md font-medium w-fit">
             Create event
           </button>
         </div>
 
         {/* Right: Event Cards */}
-        <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[21px]">
-            {pairedEvents.map(([topEvent, bottomEvent], index) => (
-              <EventCard
-                key={index}
-                topEvent={topEvent}
-                bottomEvent={bottomEvent}
-              />
-            ))}
-          </div>
+        <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {pairedEvents.map(([topEvent, bottomEvent], index) => (
+            <EventCard
+              key={index}
+              topEvent={topEvent}
+              bottomEvent={bottomEvent}
+            />
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
