@@ -90,8 +90,11 @@ const TicketBaseEvent = () => {
                 Event banner
               </label>
               <UploadArea
-                shouldUploadFile
-                // onSetUploadUrl={(url) => setDocumentUrl(url)}
+                id="document"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) form.setValue("government_issued_id", file);
+                }}
               />
             </div>
 

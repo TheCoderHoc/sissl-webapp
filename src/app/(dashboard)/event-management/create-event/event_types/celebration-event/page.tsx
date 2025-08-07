@@ -11,15 +11,15 @@ import Switch from "@/modules/event-management/components/Switch";
 import AccountSetup from "@/modules/event-management/components/old/AccountSetup";
 const CelebrationEvent = () => {
   const form = useForm();
-  const [documentUrl, setDocumentUrl] = useState("");
+  // const [documentUrl, setDocumentUrl] = useState("");
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [enableGifts, setEnableGifts] = useState(true);
   const [enableCash, setEnableCash] = useState(true);
-  const [accountDetails, setAccountDetails] = useState<{
-    account_name: string;
-    account_number: string;
-    bank: string;
-  } | null>(null);
+  // const [accountDetails, setAccountDetails] = useState<{
+  //   account_name: string;
+  //   account_number: string;
+  //   bank: string;
+  // } | null>(null);
 
   return (
     <>
@@ -92,8 +92,11 @@ const CelebrationEvent = () => {
                 Event banner
               </label>
               <UploadArea
-                shouldUploadFile
-                // onSetUploadUrl={(url) => setDocumentUrl(url)}
+                id="document"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) form.setValue("government_issued_id", file);
+                }}
               />
             </div>
             {/* Toggle Section 1 - Gifts */}
@@ -183,6 +186,7 @@ const CelebrationEvent = () => {
         <AccountSetup
           onClose={() => setShowAccountModal(false)}
           onSave={(data) => {
+            console.log(data);
             // setAccountDetails(data);
             setShowAccountModal(false);
           }}

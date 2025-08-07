@@ -30,7 +30,7 @@ export default function DocumentUploadModal({ setShowModal }: Props) {
       document_file: "",
     },
   });
-  const [documentUrl, setDocumentUrl] = useState("");
+  // const [documentUrl, setDocumentUrl] = useState("");
   const { verifyDocument, isLoading } = useDocumentVerificationController();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,7 +46,7 @@ export default function DocumentUploadModal({ setShowModal }: Props) {
 
     const payload = {
       ...values,
-      document_file: documentUrl,
+      // document_file: documentUrl,
     };
 
     try {
@@ -117,8 +117,12 @@ export default function DocumentUploadModal({ setShowModal }: Props) {
 
               <UploadArea
                 label="Upload document"
-                shouldUploadFile
-                onSetUploadUrl={(url) => setDocumentUrl(url)}
+                // shouldUploadFile
+                // onSetUploadUrl={(url) => setDocumentUrl(url)}
+                id="document"
+                onChange={() => {
+                  console.log("yes");
+                }}
               />
 
               <div className="flex justify-end gap-4 pt-4">

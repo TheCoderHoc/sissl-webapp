@@ -32,7 +32,7 @@ export default function IdentityUploadModal({
   });
 
   const { formData, setFormData } = useIdentityFormContext()!;
-  const [documentUrl, setDocumentUrl] = useState("");
+  // const [documentUrl, setDocumentUrl] = useState("");
   const { verifyIdentity, isLoading } = useIdentityVerificationController();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +49,7 @@ export default function IdentityUploadModal({
       ...formData,
       id_type: values.id_type,
       id_number: values.id_number,
-      id_image: documentUrl,
+      // id_image: documentUrl,
     };
     setFormData(updatedFormData);
     try {
@@ -112,11 +112,15 @@ export default function IdentityUploadModal({
               {/* Upload Area */}
               <UploadArea
                 label="Upload document"
-                // name="id_image"
-                // isLoading
-                shouldUploadFile
-                onSetUploadUrl={(url) => setDocumentUrl(url)}
-                // onUploadComplete={setDocumentUrl}
+                // // name="id_image"
+                // // isLoading
+                // shouldUploadFile
+                // onSetUploadUrl={(url) => setDocumentUrl(url)}
+                // // onUploadComplete={setDocumentUrl}
+                id="document"
+                onChange={() => {
+                  console.log("yes");
+                }}
               />
 
               {/* Action Buttons */}

@@ -7,100 +7,98 @@ import UploadArea from "@/components/shared/UploadArea";
 import useDocumentBulkUploadController from "@/modules/document-verification/controllers/documentBulkUpload";
 import useGetDocumentVerificationTemplate from "@/modules/document-verification/controllers/getDocumentVerificationTemplate";
 export default function VerifyUserForm() {
-    const [showUploadSection, setShowUploadSection] = useState(false);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const { uploadDocumentBulk, isLoading } = useDocumentBulkUploadController();
-    const router = useRouter();
+  const [showUploadSection, setShowUploadSection] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { uploadDocumentBulk, isLoading } = useDocumentBulkUploadController();
+  const router = useRouter();
 
-    const downloadTemplateQuery = useGetDocumentVerificationTemplate({
-        enabled: false,
-    });
+  const downloadTemplateQuery = useGetDocumentVerificationTemplate({
+    enabled: false,
+  });
 
-    const handleContinue = () => {
-        setShowUploadSection(true);
-    };
+  const handleContinue = () => {
+    setShowUploadSection(true);
+  };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            console.log("yes");
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      console.log("yes");
 
-            setSelectedFile(file);
-        }
-    };
+      setSelectedFile(file);
+    }
+  };
 
-    const handleSubmit = async () => {
-        if (!selectedFile) return;
+  const handleSubmit = async () => {
+    if (!selectedFile) return;
 
-        const formData = new FormData();
-        formData.append("file", selectedFile);
+    const formData = new FormData();
+    formData.append("file", selectedFile);
 
-        try {
-            await uploadDocumentBulk(formData);
-            // You can add redirect or toast here
-        } catch (error) {
-            console.error("Upload failed:", error);
-        }
-    };
+    try {
+      await uploadDocumentBulk(formData);
+      // You can add redirect or toast here
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+  };
 
-    return (
-        <div className="bg-black text-white px-6 py-12 mt-8 mx-auto rounded-xl">
-            {/* Header */}
-            <div className="mb-10 px-16">
-                <p className="text-sm text-gray-400 mb-2">User details</p>
-                <h1 className="text-2xl font-semibold mb-3">
-                    Download template
-                </h1>
-                <p className="text-gray-400 text-sm max-w-md">
-                    Ensure every detail provided is the same as the information
-                    on the means of identification being provided
-                </p>
-            </div>
+  return (
+    <div className="bg-black text-white px-6 py-12 mt-8 mx-auto rounded-xl">
+      {/* Header */}
+      <div className="mb-10 px-16">
+        <p className="text-sm text-gray-400 mb-2">User details</p>
+        <h1 className="text-2xl font-semibold mb-3">Download template</h1>
+        <p className="text-gray-400 text-sm max-w-md">
+          Ensure every detail provided is the same as the information on the
+          means of identification being provided
+        </p>
+      </div>
 
-            {/* Conditionally render Download or Upload */}
-            <div className="px-16">
-                {!showUploadSection ? (
-                    <DownloadArea
-                        className="w-[50%]"
-                        downloadQuery={downloadTemplateQuery}
-                        filename="Document_template.csv"
-                    />
-                ) : (
-                    <UploadArea
-                        label="Upload document"
-                        shouldUploadFile={false}
-                        className="w-[50%]"
-                        onChange={handleFileChange}
-                    />
-                )}
-            </div>
+      {/* Conditionally render Download or Upload */}
+      <div className="px-16">
+        {!showUploadSection ? (
+          <DownloadArea
+            className="w-[50%]"
+            downloadQuery={downloadTemplateQuery}
+            filename="Document_template.csv"
+          />
+        ) : (
+          <UploadArea
+            label="Upload document"
+            id="document"
+            className="w-[50%]"
+            onChange={handleFileChange}
+          />
+        )}
+      </div>
 
-            {/* Buttons */}
-            <div className="flex justify-between gap-12 mt-12 px-16">
-                <button
-                    onClick={() => router.back()}
-                    className="w-[50%] border-[0.5px] px-8 py-3 rounded-lg"
-                >
-                    Back
-                </button>
+      {/* Buttons */}
+      <div className="flex justify-between gap-12 mt-12 px-16">
+        <button
+          onClick={() => router.back()}
+          className="w-[50%] border-[0.5px] px-8 py-3 rounded-lg"
+        >
+          Back
+        </button>
 
-                {!showUploadSection ? (
-                    <button
-                        onClick={handleContinue}
-                        className="w-[50%] bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-10 py-3 rounded-lg shadow-md"
-                    >
-                        Continue
-                    </button>
-                ) : (
-                    <button
-                        onClick={handleSubmit}
-                        className="w-[50%] bg-green-600 hover:bg-green-700 text-white font-semibold px-10 py-3 rounded-lg shadow-md"
-                        disabled={isLoading}
-                    >
-                        {isLoading ? "Uploading..." : "Submit"}
-                    </button>
-                )}
-            </div>
-        </div>
-    );
+        {!showUploadSection ? (
+          <button
+            onClick={handleContinue}
+            className="w-[50%] bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-10 py-3 rounded-lg shadow-md"
+          >
+            Continue
+          </button>
+        ) : (
+          <button
+            onClick={handleSubmit}
+            className="w-[50%] bg-green-600 hover:bg-green-700 text-white font-semibold px-10 py-3 rounded-lg shadow-md"
+            disabled={isLoading}
+          >
+            {isLoading ? "Uploading..." : "Submit"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
 }

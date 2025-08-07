@@ -5,7 +5,7 @@ import { UploadIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface UploadAreaProps {
-  label: string;
+  label?: string;
   id: string;
   value?: File | null;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
