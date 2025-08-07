@@ -16,22 +16,29 @@ const UsageTabCard = ({
   ctaLink,
 }: CardProps) => {
   return (
-  <div className="max-w-sm bg-white dark:bg-[rgba(175,175,175,0.04)] p-2 text-black dark:text-white rounded-2xl border border-gray-200 dark:border-none overflow-hidden">
-  <div className="bg-gray-100 dark:bg-black p-4 flex flex-col items-start space-y-4 rounded-2xl">
-    <div className="w-full flex justify-start overflow-hidden rounded-lg">
-      <div className="max-w-full h-auto">{image}</div>
-    </div>
-    <h3 className="text-2xl font-medium leading-tight pt-7">{title}</h3>
-    <p className="text-sm text-gray-700 dark:text-gray-400 leading-snug">{content}</p>
-    <a
-      href={ctaLink}
-      className="text-yellow-600 dark:text-yellow-400 text-base font-medium hover:underline pt-24"
-    >
-      {ctaBtn}
-    </a>
-  </div>
-</div>
+    <div className="h-[640px] bg-[#080808] border border-[#1F1F1F] rounded-2xl overflow-hidden p-4 flex flex-col hover:shadow-lg transition-all">
+      {/* Image */}
+      <div className="bg-black rounded-xl overflow-hidden mb-6 h-[260px] flex items-center justify-center">
+        <div className="w-full h-full object-center">{image}</div>
+      </div>
 
+      {/* Text Content */}
+      <div className="flex flex-col flex-1 justify-between">
+        <div>
+          <h3 className="text-white text-lg font-medium mb-3">{title}</h3>
+          <p className="text-sm text-white/70 leading-snug">{content}</p>
+        </div>
+
+        <div className="pt-6">
+          <a
+            href={ctaLink}
+            className="text-[#FFE500] text-sm font-medium hover:underline"
+          >
+            {ctaBtn}
+          </a>
+        </div>
+      </div>
+    </div>
   );
 };
 
