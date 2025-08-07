@@ -57,3 +57,7 @@ export { default as gurantor_verification } from "./gurantor_verification.svg";
 export { default as Banner } from "./Banner.svg";
 export { default as event_overview } from "./event_svg.jpg";
 export { default as event_overview2 } from "./event_svg.svg";
+export { default as view_event } from "./view-event.png";
+export { default as view_event_bg } from "./view_event_bg.png";
+export { default as qr_code } from "./qr-sample2.png";
+export { default as event_details } from "./event_details.png";

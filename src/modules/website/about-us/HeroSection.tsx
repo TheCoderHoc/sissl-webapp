@@ -29,7 +29,7 @@ const HeroSection = () => {
               environments—online and offline
             </p>
             <div className="flex justify-center">
-              <a className="inline-flex text-base text-black bg-si_yellow border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">
+              <a className="inline-flex text-base text-black bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">
                 View jobs
               </a>
             </div>

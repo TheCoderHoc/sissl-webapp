@@ -31,7 +31,10 @@ const HeroSection = () => {
               protect spaces.
             </p>
             <div className="flex justify-center">
-              <a href="/auth/account-type" className="inline-flex text-base text-black bg-si_yellow border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded ">
+              <a
+                href="/auth/account-type"
+                className="inline-flex text-base text-black bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded "
+              >
                 Get Started
               </a>
             </div>

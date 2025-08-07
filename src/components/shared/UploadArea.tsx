@@ -1,169 +1,54 @@
-import { UploadIcon } from "lucide-react";
-import { Card } from "../ui/card";
-import { cn } from "@/utils/cn";
-import { Controller, useFormContext } from "react-hook-form";
-import { Skeleton } from "../ui/skeleton";
-import useFileUploadController from "@/constants/controllers/fileUploadController";
-import { useCallback, useEffect, useRef, useState } from "react";
+"use client";
 
-export interface IProps extends React.ComponentProps<"input"> {
-    label?: string;
-    name?: string;
-    isLoading?: boolean;
-    shouldUploadFile?: boolean;
-    onSetUploadUrl?: (url: string) => void;
+import { ChangeEvent } from "react";
+import { UploadIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface UploadAreaProps {
+  label?: string;
+  id: string;
+  value?: File | null;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 export default function UploadArea({
-    accept,
-    className,
-    label,
-    multiple = false,
-    name,
-    onChange,
-    isLoading,
-    shouldUploadFile = false,
-    onSetUploadUrl,
-}: IProps) {
-    const form = useFormContext();
-    const isUsingForm = !!(form && name);
-    const inputId =
-        name ||
-        label?.toLowerCase().replace(/\s+/g, "-") ||
-        `upload-${Math.random().toString(36).substring(2)}`;
+  label,
+  id,
+  value,
+  onChange,
+  className,
+}: UploadAreaProps) {
+  return (
+    <div className={cn("space-y-3", className)}>
+      <h3 className="text-sm font-medium text-white">{label}</h3>
 
-    const [localFiles, setLocalFiles] = useState<FileList | null>(null);
-    const hasUploadedRef = useRef(false);
+      <div className="relative bg-gray-900 rounded-lg min-h-[250px] flex items-center text-center text-sm text-gray-400">
+        <label
+          htmlFor={id}
+          className="flex flex-col items-center justify-center gap-2 w-full h-full cursor-pointer px-4 py-6"
+        >
+          <UploadIcon size={20} className="text-yellow-400" />
+          <p className="text-sm">
+            <span className="text-yellow-400 font-semibold">
+              Click to upload
+            </span>{" "}
+            <span className="text-gray-400">or Drag & Drop</span>
+          </p>
+          <p className="text-xs text-gray-400">jpg, png less than 5MB.</p>
+          <p className="text-xs text-gray-400">
+            Please ensure your document contain important info
+          </p>
+        </label>
 
-    const renderFileNames = (files: FileList | null) =>
-        files
-            ? Array.from(files)
-                  .map((f) => f.name)
-                  .join(", ")
-            : "";
+        {value && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-white text-xs font-medium">
+            {value.name}
+          </div>
+        )}
 
-    const { uploadFile: uploadFileController, isLoading: isUploadLoading } =
-        useFileUploadController();
-
-    const uploadFile = useCallback(async () => {
-        if (!shouldUploadFile || !localFiles?.[0] || hasUploadedRef.current) {
-            return;
-        }
-
-        hasUploadedRef.current = true;
-
-        const formData = new FormData();
-        formData.append("file", localFiles[0]);
-
-        const response = await uploadFileController(formData);
-        if (response && onSetUploadUrl) {
-            onSetUploadUrl(response.url);
-        }
-    }, [shouldUploadFile, localFiles, onSetUploadUrl]);
-
-    useEffect(() => {
-        uploadFile();
-    }, [uploadFile]);
-
-    useEffect(() => {
-        hasUploadedRef.current = false;
-    }, [localFiles]);
-
-    const renderUI = ({
-        inputId,
-        files,
-        error,
-        onInputChange,
-    }: {
-        inputId: string;
-        files: FileList | null;
-        error?: string;
-        onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    }) => {
-        return (
-            <Card className="min-h-[250px] text-gray-400 bg-gray-900 relative">
-                {isLoading || isUploadLoading ? (
-                    <Skeleton className="w-full min-h-[250px] flex items-center justify-center text-lg font-thin">
-                        Uploading File...
-                    </Skeleton>
-                ) : (
-                    <>
-                        <label
-                            htmlFor={inputId}
-                            className="flex flex-col items-center justify-center absolute left-0 right-0 top-0 bottom-0 w-full h-full cursor-pointer gap-2"
-                        >
-                            <UploadIcon size={20} className="stroke-main" />
-                            <h3>
-                                <span className="text-main font-light">
-                                    Click to upload
-                                </span>{" "}
-                                or Drag & Drop
-                            </h3>
-                            <p>jpg, png, pdf less than 5MB</p>
-                            <p>
-                                Please ensure your document contains important
-                                info
-                            </p>
-                        </label>
-
-                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                            <p className="font-bold">
-                                {renderFileNames(files)}
-                            </p>
-                            {error && (
-                                <p className="text-red-500 font-thin">
-                                    {error}
-                                </p>
-                            )}
-                        </div>
-
-                        <input
-                            type="file"
-                            id={inputId}
-                            className="hidden"
-                            multiple={multiple}
-                            accept={accept}
-                            onChange={onInputChange}
-                        />
-                    </>
-                )}
-            </Card>
-        );
-    };
-
-    return (
-        <div className={cn("space-y-5", className)}>
-            <h3>{label}</h3>
-
-            {isUsingForm ? (
-                <Controller
-                    control={form.control}
-                    name={name!}
-                    render={({ field, fieldState }) =>
-                        renderUI({
-                            inputId: name!,
-                            files: field.value,
-                            error: fieldState.error?.message,
-                            onInputChange: (e) => {
-                                if (e.target.files) {
-                                    field.onChange(e.target.files);
-                                }
-                            },
-                        })
-                    }
-                />
-            ) : (
-                renderUI({
-                    inputId,
-                    files: localFiles,
-                    onInputChange: (e) => {
-                        if (onChange && e.target.files) {
-                            onChange(e);
-                        }
-                        setLocalFiles(e.target.files);
-                    },
-                })
-            )}
-        </div>
-    );
+        <input id={id} type="file" onChange={onChange} className="hidden" />
+      </div>
+    </div>
+  );
 }

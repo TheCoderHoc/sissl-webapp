@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import React from "react";
 interface featuresArray {
@@ -34,7 +33,7 @@ const Cards = ({ data }: features) => {
             {data.map((feature, index) => (
               <div
                 key={index}
-                className="group relative flex flex-col justify-between pt-[2.75rem] pl-[2.75rem] pr-3 cursor-pointer rounded-xl transition-all duration-300 w-full md:w-1/3 bg-[#f3f4f6] dark:bg-[#060606] hover:bg-si_yellow dark:hover:bg-si_yellow hover:md:w-[70%] h-[38.75rem]"
+                className="group relative flex flex-col justify-between pt-[2.75rem] pl-[2.75rem] pr-3 cursor-pointer rounded-xl transition-all duration-300 w-full md:w-1/3 bg-[#f3f4f6] dark:bg-[#060606] hover:bg-primary dark:hover:bg-primary hover:md:w-[70%] h-[38.75rem]"
               >
                 <div>
                   <h3 className="text-black dark:text-white group-hover:text-black text-[1.5rem] font-medium mb-2 transition-colors">

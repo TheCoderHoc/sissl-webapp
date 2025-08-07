@@ -69,7 +69,7 @@ const UsageTab = () => {
         "Guest invites (up to 100 attendees)",
         "1 active event",
         "Basic ID verification tools",
-      ],  
+      ],
       ctaBtn: "Get started",
       secondaryBtn: "Contact us",
     },
@@ -151,7 +151,10 @@ const UsageTab = () => {
                   {plan.description}
                 </p>
 
-                <a href="/auth/login" className="flex justify-center items center w-full bg-si_yellow text-black py-3 rounded-lg mb-4 font-medium">
+                <a
+                  href="/auth/login"
+                  className="flex justify-center items center w-full bg-primary text-black py-3 rounded-lg mb-4 font-medium"
+                >
                   {plan.ctaBtn}
                 </a>
                 <button className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-black text-black dark:text-white py-3 rounded-lg mb-8 font-medium">
