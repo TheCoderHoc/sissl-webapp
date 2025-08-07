@@ -18,3 +18,17 @@ export interface Data {
     last_used_at:   Date;
     date_created:   Date;
 }
+
+export interface CreateAPIKeyRequest{
+    name:        string;
+    description: string;
+    scopes:      string[];
+}
+export interface CreateAPIKeyReponse {
+    status:  number;
+    success: boolean;
+    message: string;
+    data:    Data;
+}
+
+
