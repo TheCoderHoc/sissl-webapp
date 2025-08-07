@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import CelebrationEventDetails from "../components/CelebrationEventDetail";
+import CelebrationEventDetails from "../components/old/CelebrationEventDetail";
 import { useState } from "react";
 import Pill from "@/components/shared/Pill";
 

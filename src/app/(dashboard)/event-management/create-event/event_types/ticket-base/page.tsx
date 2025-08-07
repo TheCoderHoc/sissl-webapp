@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import TicketSetup from "@/modules/event-management/components/TicketSetup";
-import AccountSetup from "@/modules/event-management/components/AccountSetup";
+import AccountSetup from "@/modules/event-management/components/old/AccountSetup";
 import Ticket from "@/modules/event-management/components/Ticket";
 
 const TicketBaseEvent = () => {
@@ -110,7 +110,7 @@ const TicketBaseEvent = () => {
                 <button
                   type="button"
                   onClick={() => setShowTicketModal(true)}
-                  className="bg-si_yellow hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
+                  className="bg-primary hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
                 >
                   Set up ticket
                 </button>
@@ -129,7 +129,7 @@ const TicketBaseEvent = () => {
                   <button
                     type="button"
                     onClick={() => setShowTicketModal(true)}
-                    className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                    className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                   >
                     Set up ticket
                   </button>
@@ -143,7 +143,7 @@ const TicketBaseEvent = () => {
                     <button
                       type="button"
                       onClick={() => setShowTicketModal(true)}
-                      className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                      className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                     >
                       Add ticket
                     </button>
@@ -172,7 +172,7 @@ const TicketBaseEvent = () => {
                 <button
                   type="button"
                   onClick={() => setShowAccountModal(true)}
-                  className="bg-si_yellow hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
+                  className="bg-primary hover:bg-yellow-300 text-black  py-2 px-4 rounded-lg"
                 >
                   Set up account
                 </button>
@@ -190,7 +190,7 @@ const TicketBaseEvent = () => {
                   <button
                     type="button"
                     onClick={() => setShowAccountModal(true)}
-                    className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                    className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                   >
                     Set up account
                   </button>
@@ -204,7 +204,7 @@ const TicketBaseEvent = () => {
                     <button
                       type="button"
                       onClick={() => setShowAccountModal(true)}
-                      className="bg-si_yellow hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
+                      className="bg-primary hover:bg-yellow-300 text-black py-2 px-4 rounded-lg"
                     >
                       Edit details
                     </button>

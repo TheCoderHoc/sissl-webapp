@@ -1,12 +1,12 @@
 import React from "react";
-import { cn } from "@/utils/cn"; // optional, remove if not used
+import { cn } from "@/utils/cn";
 
 interface LabeledRowProps {
   label: string;
   value?: string;
   children?: React.ReactNode;
   className?: string;
-  bordered?: boolean; // optional to toggle top/bottom border
+  bordered?: boolean;
 }
 
 export default function LabeledRow({
