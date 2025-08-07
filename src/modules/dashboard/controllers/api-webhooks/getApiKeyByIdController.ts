@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import AxiosWithToken from "@/constants/api_management/MyHttpHelperWithToken";
-import { GetApiKeysResponse } from "../models/apiKeys"; // Adjust the path based on your project structure
+import { GetAPIKeyResponseWithID} from "../../models/apiKeys"; // Adjust the path based on your project structure
 import { IResponse } from "@/types";
 
-const useGetApiKeysController = ({ enabled = true } = {}) => {
-    return useQuery<IResponse<GetApiKeysResponse>, AxiosError>({
-        queryKey: ["GetApiKeys"],
+const useApiKeysByIdController = (id: string, { enabled = true } = {}) => {
+    return useQuery<IResponse<GetAPIKeyResponseWithID>, AxiosError>({
+        queryKey: ["api-keys", id],
         queryFn: async () => {
             const response = await AxiosWithToken.get(
-                "/verifications/api-key?environment=LiveMode"
+                `/api-keys/${id}`
             );
             console.log("response-apikeys", response.data);
             return response.data;
@@ -18,4 +18,4 @@ const useGetApiKeysController = ({ enabled = true } = {}) => {
     });
 };
 
-export default useGetApiKeysController;
+export default useApiKeysByIdController;
