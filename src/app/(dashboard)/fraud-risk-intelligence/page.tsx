@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 // import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-export const dummyFraudUsers: IFraudUser[] = [
+const dummyFraudUsers: IFraudUser[] = [
   {
     id: "#FR-39210",
     name: "Janet Okoro",
