@@ -1,178 +1,170 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
-// import useGetServices from "@/modules/dashboard/controllers/useGetServicesController";
-import { dashboardKey } from "../../../../../../public/images";
-import { Success } from "../../../../../../public/icons";
 import Image from "next/image";
+
+import { dashboardKey } from "@/public/images";
+import { Success } from "@/public/icons";
+import useCreateAPIKeyController from "@/modules/dashboard/controllers/api-webhooks/createApiKeyController";
+import { useUpdateAPIKeyController } from "@/modules/dashboard/controllers/api-webhooks/updateApiKeyController";
+import useGetApiKeyByIdController from "@/modules/dashboard/controllers/api-webhooks/getApiKeyByIdController"; // ✅ fixed import
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface Errors {
     apiName?: string;
     description?: string;
 }
 
-// interface GroupedService {
-//     id: string;
-//     name: string;
-//     services: {
-//         id: string;
-//         name: string;
-//     }[];
-// }
+type ScopeOption = { id: string; label: string };
+type ScopeGroup = { id: string; label: string; options: ScopeOption[] };
+
+// Hardcoded scope groups (IDs are the actual API `scopes` values)
+const scopeGroups: ScopeGroup[] = [
+    {
+        id: "identity_biometrics",
+        label: "Identity & Biometric APIs",
+        options: [
+            { id: "view.identity_logs", label: "View/filter Identity Log" },
+            { id: "verification.compare_facial_image", label: "Compare facial Image (Biometric)" },
+        ],
+    },
+    {
+        id: "identity_apis",
+        label: "Identity APIs",
+        options: [
+            { id: "verification.verify_bvn", label: "Verify BVN" },
+            { id: "verification.verify_drivers_license", label: "Verify Driver License" },
+            { id: "verification.verify_nin", label: "Verify NIN" },
+            { id: "verification.verify_pvc", label: "Verify PVC" },
+            { id: "verification.verify_phone_number", label: "Verify Phone number" },
+            { id: "verification.verify_nuban", label: "Verify Bank account" },
+        ],
+    },
+    {
+        id: "event_management",
+        label: "Event Management",
+        options: [
+            { id: "high_profile_event", label: "High Profile event" },
+            { id: "celebration_event", label: "Celebration event" },
+            { id: "event_invitation", label: "Event Invitation" },
+        ],
+    },
+    {
+        id: "referee_guarantors",
+        label: "Referee and Guarantors",
+        options: [{ id: "referee_and_guarantors", label: "Referee and Guarantors" }],
+    },
+];
+
+// Build a lookup to translate scopes_display labels back to scope ids (fallback)
+const labelToScopeId: Record<string, string> = {
+    "View/filter identity logs": "view.identity_logs",
+    "Compare Facial Image": "verification.compare_facial_image",
+    "Verify BVN": "verification.verify_bvn",
+    "Verify Drivers License": "verification.verify_drivers_license",
+    "Verify NIN": "verification.verify_nin",
+    "Verify PVC": "verification.verify_pvc",
+    "Verify Phone Number": "verification.verify_phone_number",
+    "Verify Bank Account Number": "verification.verify_nuban",
+    "High Profile Event": "high_profile_event",
+    "Celebration Event": "celebration_event",
+    "Event Invitation": "event_invitation",
+    "Referee and Guarantors": "referee_and_guarantors",
+};
 
 const CreateApiKeyPage: React.FC = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const keyFromParams = searchParams.get("key");
-    const isEditMode = !!keyFromParams;
+    const id = searchParams.get("id");
+    const isEditMode = !!id;
+
+    const { createAPIKey } = useCreateAPIKeyController();
+    const { updateAPIKey } = useUpdateAPIKeyController(id ?? "");
+
+    // ✅ Correct hook usage
+    const {
+        data: apiKeyDetail,
+        isLoading: isDetailLoading,
+        isError: isDetailError,
+    } = useGetApiKeyByIdController(id ?? "", { enabled: isEditMode });
 
     const [apiName, setApiName] = useState("");
     const [description, setDescription] = useState("");
+    const [selectedScopes, setSelectedScopes] = useState<Set<string>>(new Set());
     const [errors, setErrors] = useState<Errors>({});
+    const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [loading, setLoading] = useState(false);
 
-    // const [groupedServices, setGroupedServices] = useState<GroupedService[]>(
-    //     []
-    // );
-    // const [selectedServiceIds, setSelectedServiceIds] = useState<Set<string>>(
-    //     new Set()
-    // );
+    // ✅ Preselect from detail
+    useEffect(() => {
+        if (!isEditMode || !apiKeyDetail) return;
+        const d = apiKeyDetail;
+        setApiName(d.name ?? "");
+        setDescription(d.description ?? "");
 
-    // const { data: serviceData, isLoading } = useGetServices();
+        let scopesFromApi: string[] = [];
 
-    // Fetch and transform service data
-    // useEffect(() => {
-    //     if (serviceData?.data?.results) {
-    //         const transformed = serviceData.data.results.map((group) => ({
-    //             id: group.id,
-    //             name: group.name,
-    //             services: (group.services || []).map((s) => ({
-    //                 id: s.id,
-    //                 name: s.name,
-    //             })),
-    //         }));
-    //         setGroupedServices(transformed);
-    //     }
-    // }, [serviceData]);
+        if (Array.isArray(apiKeyDetail.scopes) && apiKeyDetail.scopes.length) {
+            scopesFromApi = apiKeyDetail.scopes;
+        } else if (Array.isArray(apiKeyDetail.scopes_display) && apiKeyDetail.scopes_display.length) {
+            scopesFromApi = apiKeyDetail.scopes_display
+                .map((label: string) => labelToScopeId[label] || "")
+                .filter((scope): scope is string => Boolean(scope)); // type guard removes null/empty
+        }
+        setSelectedScopes(new Set(scopesFromApi));
+    }, [isEditMode, apiKeyDetail]);
 
-    // Toggle individual service
-    // const toggleService = (serviceId: string) => {
-    //     setSelectedServiceIds((prev) => {
-    //         const newSet = new Set(prev);
-    //         if (newSet.has(serviceId)) {
-    //             newSet.delete(serviceId);
-    //         } else {
-    //             newSet.add(serviceId);
-    //         }
-    //         return newSet;
-    //     });
-    // };
+    const toggleScope = (scope: string) => {
+        setSelectedScopes((prev) => {
+            const next = new Set(prev);
+            if (next.has(scope)) next.delete(scope);
+            else next.add(scope);
+            return next;
+        });
+    };
 
-    // Toggle all services in a group
-    // const toggleGroup = (group: GroupedService) => {
-    //     const allSelected = group.services.every((service) =>
-    //         selectedServiceIds.has(service.id)
-    //     );
-    //     setSelectedServiceIds((prev) => {
-    //         const newSet = new Set(prev);
-    //         group.services.forEach((service) => {
-    //             if (allSelected) {
-    //                 newSet.delete(service.id);
-    //             } else {
-    //                 newSet.add(service.id);
-    //             }
-    //         });
-    //         return newSet;
-    //     });
-    // };
+    const isScopeSelected = (scope: string) => selectedScopes.has(scope);
 
-    // Check group checkbox
-    // const isGroupChecked = (group: GroupedService) =>
-    //     group.services.some((service) => selectedServiceIds.has(service.id));
-
-    // Submit
-    // const handleSubmit = (e: React.FormEvent) => {
-    //   e.preventDefault();
-
-    //   const newErrors: Errors = {};
-    //   if (!apiName.trim()) newErrors.apiName = 'API name is required';
-    //   if (!description.trim()) newErrors.description = 'Description is required';
-    //   setErrors(newErrors);
-
-    //   if (Object.keys(newErrors).length === 0) {
-    //     setShowModal(true);
-
-    //     const payload = {
-    //       name: apiName,
-    //       description,
-    //       services: Array.from(selectedServiceIds),
-    //     };
-
-    //     const method = isEditMode ? 'PATCH' : 'POST';
-    //     const url = isEditMode
-    //       ? `/api/apikeys/${keyFromParams}`
-    //       : '/api/apikeys';
-
-    //     console.log(payload)
-    //     fetch(url, {
-    //       method,
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify(payload),
-    //     }).then(() => {
-    //       setSuccess(true);
-    //       setTimeout(() => {
-    //         setShowModal(false);
-    //         router.push('/dashboard/profile?tab=3');
-    //       }, 2000);
-    //     });
-    //   }
-    // };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
+    const validate = () => {
         const newErrors: Errors = {};
         if (!apiName.trim()) newErrors.apiName = "API name is required";
-        if (!description.trim())
-            newErrors.description = "Description is required";
+        if (!description.trim()) newErrors.description = "Description is required";
         setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
-        if (Object.keys(newErrors).length === 0) {
-            setShowModal(true);
-            setLoading(true); // 🔒 Disable button
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!validate()) return;
 
-            const payload = {
-                name: apiName,
-                description,
-                // services: Array.from(selectedServiceIds),
-            };
+        const payload = {
+            name: apiName.trim(),
+            description: description.trim(),
+            scopes: Array.from(selectedScopes),
+        };
 
-            console.log("Submitting payload:", payload); // optional
+        setShowModal(true);
+        setLoading(true);
 
-            const method = isEditMode ? "PATCH" : "POST";
-            const url = isEditMode
-                ? `/api/apikeys/${keyFromParams}`
-                : "/api/apikeys";
-
-            fetch(url, {
-                method,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            })
-                .then(() => {
-                    setSuccess(true);
-                    setTimeout(() => {
-                        setShowModal(false);
-                        router.push("/dashboard/profile?tab=3");
-                    }, 2000);
-                })
-                .finally(() => {
-                    setLoading(false); // ✅ Re-enable button
-                });
+        try {
+            if (isEditMode) {
+                await updateAPIKey(payload); // ✅ no id here
+            } else {
+                await createAPIKey(payload);
+            }
+            setSuccess(true);
+            setTimeout(() => {
+                setShowModal(false);
+                router.push("/dashboard/profile?tab=3");
+            }, 1500);
+        } catch (err) {
+            console.error(err);
+            setShowModal(false);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -180,6 +172,8 @@ const CreateApiKeyPage: React.FC = () => {
         const lastTab = localStorage.getItem("lastTab");
         router.push(`/dashboard/profile?tab=${lastTab || "1"}`);
     };
+
+    const showFormBody = !(isEditMode && isDetailLoading);
 
     return (
         <main className="min-h-screen bg-[#0a0a0a] text-white flex flex-col lg:flex-row">
@@ -189,99 +183,62 @@ const CreateApiKeyPage: React.FC = () => {
                         {isEditMode ? "Edit API Key" : "Create API Key"}
                     </h1>
 
-                    {loading ? (
-                        <div className="flex justify-center pt-10">
-                            {/* <CustomLoader /> */}
-                        </div>
-                    ) : (
-                        <form
-                            onSubmit={handleSubmit}
-                            className="flex-1 flex flex-col justify-between"
-                        >
+                    {isEditMode && isDetailError && (
+                        <p className="text-red-500 mb-4">Failed to load API key details.</p>
+                    )}
+
+                    {showFormBody ? (
+                        <form onSubmit={handleSubmit} className="flex flex-col flex-1 justify-between">
                             <div className="space-y-8 overflow-auto pr-1">
                                 <div>
                                     <label className="block text-sm mb-1">
-                                        API name{" "}
-                                        <span className="text-red-500">*</span>
+                                        API name <span className="text-red-500">*</span>
                                     </label>
                                     <input
-                                        value={apiName}
-                                        onChange={(e) =>
-                                            setApiName(e.target.value)
-                                        }
                                         className="w-full bg-black border border-gray-700 rounded p-3 outline-none focus:border-l-4 focus:border-l-yellow-400"
                                         placeholder="API name"
+                                        value={apiName}
+                                        onChange={(e) => setApiName(e.target.value)}
                                     />
-                                    {errors.apiName && (
-                                        <p className="text-red-500 text-xs mt-1">
-                                            {errors.apiName}
-                                        </p>
-                                    )}
+                                    {errors.apiName && <p className="text-red-500 text-xs mt-1">{errors.apiName}</p>}
                                 </div>
 
                                 <div>
                                     <label className="block text-sm mb-1">
-                                        API description{" "}
-                                        <span className="text-red-500">*</span>
+                                        API description <span className="text-red-500">*</span>
                                     </label>
                                     <textarea
-                                        value={description}
-                                        onChange={(e) =>
-                                            setDescription(e.target.value)
-                                        }
                                         className="w-full bg-black border border-gray-700 rounded p-3 h-32 resize-none outline-none focus:border-l-4 focus:border-l-yellow-400"
                                         placeholder="Enter API description"
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
                                     />
                                     {errors.description && (
-                                        <p className="text-red-500 text-xs mt-1">
-                                            {errors.description}
-                                        </p>
+                                        <p className="text-red-500 text-xs mt-1">{errors.description}</p>
                                     )}
                                 </div>
 
-                                {/* Dynamic Service Checkboxes */}
                                 <div className="space-y-6">
-                                    {/* {groupedServices.map((group) => (
+                                    {scopeGroups.map((group) => (
                                         <div key={group.id}>
                                             <label className="flex items-center font-medium mb-2 cursor-pointer select-none">
-                                                <input
-                                                    type="checkbox"
-                                                    className="mr-2 h-5 w-5 border-2 border-white rounded-md text-black checked:bg-yellow-400"
-                                                    checked={isGroupChecked(
-                                                        group
-                                                    )}
-                                                    onChange={() =>
-                                                        toggleGroup(group)
-                                                    }
-                                                />
-                                                {group.name}
+                                                {group.label}
                                             </label>
                                             <div className="pl-6 space-y-2">
-                                                {group.services.map(
-                                                    (service) => (
-                                                        <label
-                                                            key={service.id}
-                                                            className="flex items-center cursor-pointer select-none"
-                                                        >
-                                                            <input
-                                                                type="checkbox"
-                                                                className="mr-2 h-5 w-5 border-2 border-white rounded-md text-black checked:bg-yellow-400"
-                                                                checked={selectedServiceIds.has(
-                                                                    service.id
-                                                                )}
-                                                                onChange={() =>
-                                                                    toggleService(
-                                                                        service.id
-                                                                    )
-                                                                }
-                                                            />
-                                                            {service.name}
-                                                        </label>
-                                                    )
-                                                )}
+                                                {group.options.map((option) => (
+                                                    <label key={option.id} className="flex items-center cursor-pointer select-none">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="mr-2 h-5 w-5 border-2 border-white rounded-md text-black checked:bg-yellow-400"
+                                                            checked={isScopeSelected(option.id)}
+                                                            onChange={() => toggleScope(option.id)}
+                                                        />
+                                                        {option.label}
+                                                    </label>
+                                                ))}
                                             </div>
                                         </div>
-                                    ))} */}
+                                    ))}
                                 </div>
                             </div>
 
@@ -295,7 +252,7 @@ const CreateApiKeyPage: React.FC = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={loading} // ⛔ disabled while submitting
+                                    disabled={loading}
                                     className="w-[415px] h-[45px] rounded-[12px] bg-yellow-400 text-black font-semibold hover:bg-yellow-300 transition disabled:opacity-50"
                                 >
                                     {loading
@@ -303,11 +260,13 @@ const CreateApiKeyPage: React.FC = () => {
                                             ? "Updating..."
                                             : "Creating..."
                                         : isEditMode
-                                        ? "Update API Key"
-                                        : "Create API keys"}
+                                            ? "Update API Key"
+                                            : "Create API keys"}
                                 </button>
                             </div>
                         </form>
+                    ) : (
+                        <p className="text-gray-400">Loading key details…</p>
                     )}
                 </div>
             </section>
@@ -317,37 +276,68 @@ const CreateApiKeyPage: React.FC = () => {
                     src={dashboardKey.src}
                     alt="Key illustration"
                     className="w-64 h-64 object-contain"
+                    width={64}
+                    height={64}
                 />
             </aside>
+
+            {/* <Dialog.Root open={showModal}>
+                <Dialog.Portal>
+                    <Dialog.Overlay className="fixed inset-0 bg-black/70 z-50" />
+                    <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0a0a0a] border border-gray-700 rounded-lg z-50 w-[348px] h-[287px] p-6 flex flex-col items-center justify-center">
+                        {success ? (
+                            <>
+                                <Image src={Success.src} alt="success" width={1000} height={1000} />
+                                <p className="text-white text-center text-lg mt-3">
+                                    API successfully {isEditMode ? "updated" : "created"}
+                                </p>
+                            </>
+                        ) : (
+                            <p className="mt-3 text-white text-lg">
+                                {isEditMode ? "Updating API key..." : "Creating API key..."}
+                            </p>
+                        )}
+                    </Dialog.Content>
+                </Dialog.Portal>
+            </Dialog.Root> */}
 
             <Dialog.Root open={showModal}>
                 <Dialog.Portal>
                     <Dialog.Overlay className="fixed inset-0 bg-black/70 z-50" />
                     <Dialog.Content
-                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-            bg-[#0a0a0a] border border-gray-700 rounded-lg z-50 w-[348px] h-[287px] p-6 flex flex-col items-center justify-center"
+                        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+          bg-[#0a0a0a] border border-gray-700 rounded-lg z-50 
+          w-[348px] h-[287px] p-6 flex flex-col items-center justify-center"
                     >
+                        {/* Hidden title for accessibility */}
+                        <VisuallyHidden>
+                            <Dialog.Title>API Key Creation Status</Dialog.Title>
+                        </VisuallyHidden>
+
+                        {/* Hidden description for accessibility */}
+                        <VisuallyHidden>
+                            <Dialog.Description>
+                                This modal shows whether the API key was successfully created or updated.
+                            </Dialog.Description>
+                        </VisuallyHidden>
+
                         {success ? (
                             <>
                                 <Image
                                     src={Success.src}
-                                    alt="success"
-                                    width={1000}
-                                    height={1000}
+                                    alt="Success"
+                                    width={64} // smaller size matching UI
+                                    height={64}
+                                    priority
                                 />
                                 <p className="text-white text-center text-lg mt-3">
-                                    API successfully{" "}
-                                    {isEditMode ? "updated" : "created"}
+                                    API successfully {isEditMode ? "updated" : "created"}
                                 </p>
                             </>
                         ) : (
-                            <>
-                                {/* <CustomLoader /> */}
-                                <p className="mt-3 text-white text-lg">
-                                    {isEditMode ? "Updating" : "Creating"} API
-                                    key...
-                                </p>
-                            </>
+                            <p className="mt-3 text-white text-lg">
+                                {isEditMode ? "Updating API key..." : "Creating API key..."}
+                            </p>
                         )}
                     </Dialog.Content>
                 </Dialog.Portal>

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import CompanyCard from "./CompanyCard/CompanyCard";
-import { HeroImg3, Logo } from "../../../../public/icons";
+import { HeroImg3, Logo } from "@/public/icons";
 // Hero Section
 const HeroSection = () => {
   // const companies = [
@@ -18,46 +18,48 @@ const HeroSection = () => {
     }));
 
   return (
-    <>
-      <section className="flex flex-col xl:flex-row xl:justify-between w-[80%] my-0 mx-auto body-font bg-white dark:bg-black pt-28">
-        <div className="container mx-auto flex px-5 pb-24 md:flex-row flex-col items-center">
-          <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-            <h1 className="title-font sm:text-5xl text-3xl mb-4 font-medium text-black dark:text-white">
+     <>
+      {/* HERO SECTION */}
+      <section className="bg-white dark:bg-black pt-28 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-10">
+          {/* TEXT CONTENT */}
+          <div className="flex-1 text-center lg:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium text-black dark:text-white leading-tight">
               Secure Your Space
-              <br className="hidden lg:inline-block" />
+              <br className="hidden lg:block" />
               with Smart
-              <br className="hidden lg:inline-block" />
+              <br className="hidden lg:block" />
               Hardware
             </h1>
-            <p className="mb-8 text-sm leading-relaxed text-black dark:text-white">
+            <p className="mt-6 text-sm text-black dark:text-white leading-relaxed">
               From CCTV surveillance to IP phones and smart switches,
-              <br className="hidden text-sm lg:inline-block" />
+              <br className="hidden md:inline-block" />
               SISSL helps you build safer, smarter environments with
-              <br className="hidden text-sm lg:inline-block" />
+              <br className="hidden md:inline-block" />
               trusted security products.
             </p>
-            <div className="flex justify-center">
+            <div className="mt-8">
               <a
                 href="/auth/account-type"
-                className="inline-flex text-base text-black bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded "
+                className="inline-block bg-primary text-black font-medium py-2 px-6 rounded hover:bg-yellow-600 transition"
               >
                 Explore Products
               </a>
             </div>
           </div>
-          <div className="lg:w-[700px] md:w-[600px] w-full overflow-hidden">
-            <div className="rounded overflow-hidden">
-              <HeroImg3 className="w-full h-auto object-cover object-center" />
-            </div>
+
+          {/* IMAGE */}
+          <div className="flex-1 w-full max-w-xl mx-auto lg:mx-0">
+            <HeroImg3 className="w-full h-auto object-contain" />
           </div>
         </div>
       </section>
 
-      {/* Partners and Sponsors */}
-      <section className="text-gray-600 body-font bg-white dark:bg-black flex flex-col xl:flex-row xl:justify-between w-[80%] my-0 mx-auto">
-        <div className="container px-5 mx-auto">
-          <div className="relative overflow-hidden w-full py-6">
-            <div className="animate-slide flex gap-16 w-max">
+      {/* SPONSORS CAROUSEL */}
+      <section className="bg-white dark:bg-black py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="overflow-hidden relative">
+            <div className="animate-slide flex gap-10 w-max">
               {[...companies, ...companies].map((company, idx) => (
                 <CompanyCard
                   key={idx}

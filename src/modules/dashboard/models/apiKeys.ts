@@ -1,74 +1,40 @@
-export interface GetApiKeysResponse {
-    status:  boolean;
+export interface GetAPIKeyResponseWithID {
+    status:  number;
+    success: boolean;
     message: string;
     data:    Data;
 }
+export interface GetAPIKeyListResponse {
+    status:  number;
+    success: boolean;
+    message: string;
+    data:    string;
+}
 
 export interface Data {
-    paginator: Paginator;
-    results:   Result[];
+    id:             string;
+    name:           string;
+    description:    string;
+    scopes_display: string;
+    environment:    string;
+    plaintext:      string;
+    is_active:      boolean;
+    revoked_at:     Date;
+    expires_at:     Date;
+    last_used_at:   Date;
+    date_created:   Date;
 }
 
-export interface Paginator {
-    count:                number;
-    page:                 number;
-    page_size:            number;
-    total_pages:          number;
-    next_page_number:     number;
-    next:                 string;
-    previous:             string;
-    previous_page_number: number;
-}
-
-export interface Result {
-    id:      string;
-    name:    string;
-    events:  string[];
-    url:     string;
-    api_key: APIKey;
-}
-
-export interface APIKey {
-    id:               string;
-    name:             string;
-    description:      string;
-    environment:      string;
-    key:              string;
-    status:           string;
-    last_used:        Date;
-    service_count:    number;
-    created_datetime: Date;
-}
-
-export interface APIKeyPostRequest {
-    name:       string;
-    events:     string[];
-    url:        string;
-    api_key_id: string;
-}
-
-export interface PostAPIKeysRequest {
+export interface APIKeyRequest{
     name:        string;
     description: string;
-    environment: string;
-    service_ids: string[];
+    scopes:      string[];
 }
-
-export interface PostAPIKeysResponse {
+export interface APIKeyReponse {
     status:  number;
     success: boolean;
     message: string;
     data:    Data;
 }
 
-export interface Data {
-    id:               string;
-    name:             string;
-    description:      string;
-    environment:      string;
-    key:              string;
-    status:           string;
-    last_used:        Date;
-    service_count:    number;
-    created_datetime: Date;
-}
+

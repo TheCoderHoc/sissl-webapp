@@ -75,4 +75,4 @@ export { default as reject } from "./reject.svg";
 export { default as ApiLogsIcon } from "./ApiLogsIcon";
 export { default as RefreshIcon } from './RefreshIcon';
 export { default as CheckMark } from './CheckMark';
-
+export { default as fraud } from "./fraud.svg";

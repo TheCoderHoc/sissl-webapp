@@ -1,21 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { DataTable } from "@/components/shared/DataTable";
 import { Button } from "@/components/ui/button";
-// import { apiKeyColumns, IAPIKey } from "../columns/api-key-columns";
-// import WebHookItem from "./WebHookItem";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/useModalStore";
 import GoLiveModal from "./ApiKeyGoLiveModal";
 import DeleteApiKeyModal from "./ApiKeyDeleteModal";
-// import useGetApiKeysController from "../controllers/useGetApiKeysController";
-// import useGetServicesController from "../controllers/useGetServicesController";
 import { webhookColumns } from "../columns/webhookColumns";
 import RegenerateWebhookModal from "./RegenerateWebhookModal";
 import ChangeWebhookModal from "./ChangeWebHookModal";
-// import useGetWebHookController from "../controllers/useGetWebHookController";
-
+import { apiKeyColumns } from "../columns/api-key-columns";
+import useGetApiKeysListController from "../controllers/api-webhooks/getApiKeysListController";
+import { Data } from "../models/apiKeys";
+import { useDeleteAPIKeyController } from "../controllers/api-webhooks/deleteApiKeyByIdController";
+import { useQueryClient } from "@tanstack/react-query";
 export interface IWebhook {
   name: string;
   description: string;
@@ -60,21 +59,25 @@ export type APIKeyType = "LIVE" | "TEST";
 export default function WebHookTab() {
   const [filterType, setFilterType] = useState<APIKeyType>("TEST");
   const router = useRouter();
-  // const { data } = useGetWebHookController()
   const { modalType, apiKey, closeModal } = useModalStore();
-  // const { data: apiKeyData } = useGetApiKeysController();
-  // const { data: servicesData } = useGetServicesController();
+  const { data: apiKeyData, isLoading: listLoading } = useGetApiKeysListController();
+  const queryClient = useQueryClient();
 
-  // Create ID-to-name map for services
-  // const serviceMap = useMemo(() => {
-  //     const map: Record<string, string> = {};
-  //     if (servicesData?.data?.results) {
-  //         servicesData.data.results.forEach((service) => {
-  //             map[service.id] = service.name;
-  //         });
-  //     }
-  //     return map;
-  // }, [servicesData]);
+  const { deleteAPIKey } =
+    useDeleteAPIKeyController(apiKey?.id || "");
+
+  const handleDelete = useCallback(async () => {
+    if (!apiKey?.id) return;
+    try {
+      await deleteAPIKey();
+      // Refresh the list
+      await queryClient.invalidateQueries({ queryKey: ["api-keys"] });
+      closeModal();
+    } catch (e) {
+      // Optional: show your own toast or rely on useApiManager's toast
+      console.error("Delete failed", e);
+    }
+  }, [apiKey?.id, deleteAPIKey, queryClient, closeModal]);
 
   const handleFilterToggle = () => {
     setFilterType((prev) => (prev === "LIVE" ? "TEST" : "LIVE"));
@@ -85,28 +88,32 @@ export default function WebHookTab() {
     router.push("/dashboard/profile/create-apikey-form");
   };
 
-  // Map API key response into table data
-  // const apiKeys: IAPIKey[] = useMemo(() => {
-  //     if (!apiKeyData?.data?.results) return [];
+  const apiKeys = useMemo(() => {
+    const results: Data[] = apiKeyData?.data?.results || [];
 
-  //     return apiKeyData.data.results
-  //         .filter((item) =>
-  //             filterType === "LIVE"
-  //                 ? item.environment === "Live"
-  //                 : item.environment === "SandBox"
-  //         )
-  //         .map((item) => ({
-  //             name: item.name,
-  //             description: item.description,
-  //             environment:
-  //                 item.environment === "Live" ? "production" : "staging",
-  //             key: item.key,
-  //             services: item.service_count
-  //                 ? serviceMap[item.id] ?? `Service (${item.service_count})`
-  //                 : "—",
-  //             created_at: item.created_datetime,
-  //         }));
-  // }, [apiKeyData, filterType, serviceMap]);
+    return results
+      .filter((item) =>
+        filterType === "LIVE" ? item.environment === "LIVE" : item.environment === "TEST"
+      )
+      .map((item) => {
+        const serviceCount = item.scopes_display?.length || 0;
+        const createdAt = new Date(item.date_created).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+
+        return {
+          id: item.id, // ✅ needed for edit/delete actions
+          name: item.name,
+          description: item.description,
+          environment: item.environment === "LIVE" ? "Livemode" : "Sandbox",
+          key: item.plaintext,
+          services: `${serviceCount} service${serviceCount !== 1 ? "s" : ""}`,
+          created_at: createdAt,
+        };
+      });
+  }, [apiKeyData, filterType]);
 
   return (
     <div className="space-y-10">
@@ -127,8 +134,11 @@ export default function WebHookTab() {
         </div>
       </div>
 
-      {/* <DataTable columns={apiKeyColumns} data={apiKeys} /> */}
-
+      {listLoading ? (
+        <p className="text-gray-400">Loading API keys…</p>
+      ) : (
+        <DataTable columns={apiKeyColumns} data={apiKeys} />
+      )}
       {apiKey && (
         <>
           {modalType === "goLive" && (
@@ -145,12 +155,9 @@ export default function WebHookTab() {
           {modalType === "delete" && (
             <DeleteApiKeyModal
               open
-              onClose={closeModal}
               apiKey={apiKey}
-              onConfirm={() => {
-                console.log("Deleting", apiKey.key);
-                closeModal();
-              }}
+              onClose={closeModal}
+              onConfirm={handleDelete}
             />
           )}
         </>
@@ -158,13 +165,9 @@ export default function WebHookTab() {
 
       <h2>Webhooks</h2>
       <div className="space-y-10">
-        <p className="text-gray-500">No web hooks found</p>
         <DataTable columns={webhookColumns} data={dummyWebhooks} />
         <RegenerateWebhookModal />
         <ChangeWebhookModal />
-
-        {/* <WebHookItem />
-        <WebHookItem /> */}
       </div>
     </div>
   );

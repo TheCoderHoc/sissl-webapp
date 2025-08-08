@@ -9,7 +9,7 @@ const useGetServices = ({ enabled = true } = {}) => {
         queryKey: ["api-services"],
         queryFn: async () => {
             const response = await AxiosWithToken.get("/billing/services");
-            console.log("api-service", response.data);
+            // console.log("api-service", response.data);
             return response.data;
         },
         enabled,
