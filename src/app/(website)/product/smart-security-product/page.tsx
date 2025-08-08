@@ -34,9 +34,28 @@ const page = () => {
         <div className="dark:bg-[#030302] bg-white">
             <HeroSection />
             <GallerySection />
-                <HorizontalSlider heading="Industries That Use SISSL"
-                    highlight="SISSL"
-                    items={items} />
+               const items = [
+    {
+        image: slide1.src,
+        title: "Corporates & Enterprises",
+        description: "Keep permanent and contract staff verified and secure—across departments, branches, or regions.",
+    },
+    {
+        image: slide1.src,
+        title: "Government",
+        description: "Maintain trusted identity verification for volunteers, staff, and citizens—digitally and consistently.",
+    },
+    {
+        image: slide1.src,
+        title: "Education",
+        description: "Secure onboarding and identity verification for students, educators, and alumni across institutions.",
+    },
+    {
+        image: slide1.src,
+        title: "Healthcare",
+        description: "Authenticate professionals and patients to improve service delivery and data access security.",
+    },
+];
         </div>
     );
 };
