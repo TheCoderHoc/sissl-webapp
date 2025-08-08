@@ -4,6 +4,12 @@ export interface GetAPIKeyResponseWithID {
     message: string;
     data:    Data;
 }
+export interface GetAPIKeyListResponse {
+    status:  number;
+    success: boolean;
+    message: string;
+    data:    string;
+}
 
 export interface Data {
     id:             string;
@@ -19,12 +25,12 @@ export interface Data {
     date_created:   Date;
 }
 
-export interface CreateAPIKeyRequest{
+export interface APIKeyRequest{
     name:        string;
     description: string;
     scopes:      string[];
 }
-export interface CreateAPIKeyReponse {
+export interface APIKeyReponse {
     status:  number;
     success: boolean;
     message: string;

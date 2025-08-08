@@ -8,7 +8,16 @@ import { ApiLogsIcon } from "../../../../public/icons";
 import TrashIcon from "../../../../public/icons/Trash";
 import HorizontalDotsIcon from "../../../../public/icons/HorizontalDots";
 
+// export interface IAPIKey {
+//     name: string;
+//     description: string;
+//     environment: string;
+//     key: string;
+//     services: string;
+//     created_at: string;
+// }
 export interface IAPIKey {
+    id: string; // ✅
     name: string;
     description: string;
     environment: string;
@@ -55,10 +64,7 @@ export const apiKeyColumns: ColumnDef<IAPIKey>[] = [
     {
         header: "Action",
         id: "action",
-        cell: ({ row }) => {
-            const apiKeyData = row.original as IAPIKey;
-            return <TableActionMenu apiKey={apiKeyData} />;
-        },
+        cell: ({ row }) => <TableActionMenu apiKey={row.original as IAPIKey} />,
     },
 ];
 interface TableActionMenuProps {
@@ -82,7 +88,7 @@ const TableActionMenu = ({ apiKey }: TableActionMenuProps) => {
             label: "Edit Key",
             icon: <PencilIcon />,
             onClick: () => {
-                router.push(`/dashboard/profile/create-apikey-form?key=${encodeURIComponent(apiKey.key)}`);
+                router.push(`/dashboard/profile/create-apikey-form?id=${encodeURIComponent(apiKey.id)}`);
             }
         },
 
@@ -91,10 +97,10 @@ const TableActionMenu = ({ apiKey }: TableActionMenuProps) => {
             label: "ApiLogs",
             icon: <ApiLogsIcon />,
             onClick: () => {
-                router.push(`/dashboard/profile/api-logs-history?key=${encodeURIComponent(apiKey.key)}`);
+                router.push(`/dashboard/profile/api-logs-history?id=${encodeURIComponent(apiKey.id)}`);
             }
         },
-        
+
         {
             key: "4",
             label: <span className="text-red-500">Delete Key</span>,
@@ -102,7 +108,7 @@ const TableActionMenu = ({ apiKey }: TableActionMenuProps) => {
             onClick: () => {
                 useModalStore.getState().openModal("delete", apiKey);
             }
-           
+
         },
     ];
 
